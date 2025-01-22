@@ -1,0 +1,26 @@
+const BASE_URL = "http://localhost:3000"
+const BASE_URL_2 = "http://localhost:8081"
+const ADD = "api"
+const ADD2="v1"
+const USER = "users"
+
+export const SIGNUP_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/${USER}/register`
+export const LOGIN_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/${USER}/login`
+export const LOGOUT_ROUTE = `${BASE_URL}/${ADD}/${USER}/logout`
+export const TOKEN_ROUTE = `${BASE_URL}/${ADD}/${USER}/verify-token`
+export const EDIT_PROFILE_ROUTE = `${BASE_URL}/${ADD}/${USER}/`
+
+
+export const IDENTIFY_ROUTE = `${BASE_URL_2}/identify`
+export const POACH_ROUTE = `${BASE_URL_2}/poach`
+
+const PROJECT_BASE_URL = `${BASE_URL}/${ADD}/projects`;
+
+export const CREATE_PROJECT_ROUTE = `${PROJECT_BASE_URL}`;
+export const GET_ALL_PROJECTS_ROUTE = `${PROJECT_BASE_URL}`;
+export const GET_PROJECT_BY_ID_ROUTE = (id) => `${PROJECT_BASE_URL}/${id}`;
+export const GET_PROJECT_BY_ORGANIZATION_ROUTE=(id)=>`${PROJECT_BASE_URL}/organization/${id}`
+export const UPDATE_PROJECT_ROUTE = (id) => `${PROJECT_BASE_URL}/${id}`;
+export const DELETE_PROJECT_ROUTE = (id) => `${PROJECT_BASE_URL}/${id}`;
+export const ADD_MEDIA_TO_PROJECT_ROUTE = (id) => `${PROJECT_BASE_URL}/${id}/media`;
+export const DONATE_TO_PROJECT_ROUTE = (id) => `${PROJECT_BASE_URL}/${id}/donate`;

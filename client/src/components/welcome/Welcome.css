@@ -1,0 +1,113 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  
+  .welcome-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+  }
+  
+  .welcome-container {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .welcome-logo {
+    margin-top: -30px;
+    width: 520px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  .welcome-text-container {
+    margin-top: -100px;
+  }
+  
+  .welcome-title {
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    color: #1a89d2;
+  }
+  
+  .welcome-char {
+    display: inline-block;
+  }
+  
+  .welcome-slogan {
+    font-size: 1.5rem;
+    margin-top: 10px;
+    color: #f4f4f4;
+    font-style: italic;
+  }
+  
+  .welcome-icons-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .welcome-icon-style {
+    color: #ff9800;
+    animation: icon-bounce 2s infinite ease-in-out;
+  }
+  
+  @keyframes icon-bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+
+  @media (max-width: 768px) {
+    .welcome-container {
+      flex-direction: row; 
+      justify-content: flex-start; 
+    }
+  
+    .welcome-text-container {
+      margin-top: 0;
+      margin-right: 20px;
+    }
+  
+    .welcome-title {
+      font-size: 2rem; 
+      text-align: left; 
+    }
+  
+    .welcome-slogan {
+      font-size: 1.2rem; 
+      text-align: left;
+    }
+  
+    .welcome-icons-container {
+      margin-top: 20px;
+      justify-content: flex-start; 
+    }
+  
+    .welcome-icon-style {
+      margin-right: 20px;
+    }
+  }
+  

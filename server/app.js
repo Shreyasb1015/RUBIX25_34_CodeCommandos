@@ -5,12 +5,17 @@ import { createServer } from 'node:http';
 import { Server } from "socket.io";
 import path from 'path';
 import { fileURLToPath } from 'url';
+import userRouter from './routes/user.routes.js'
 
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app=express();
+app.use(cors({
+    origin:process.env.CORS_ORIGIN,
+    credentials:true,
+}));
 const server=createServer(app);
 const io=new Server(server,{
     cors: {
@@ -59,10 +64,7 @@ io.on('connection',(socket)=>{
 
 });
 
-app.use(cors({
-    origin:process.env.CORS_ORIGIN,
-    credentials:true,
-}));
+
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     next();
@@ -72,4 +74,6 @@ app.use(express.urlencoded({extended:true,limit:"16kb"}));
 app.use('/profile-pictures', express.static(path.join(__dirname, 'public/profile-pictures')));
 app.use(cookieParser());
 
+
+app.use('/api/v1/users',userRouter);
 export default server;
