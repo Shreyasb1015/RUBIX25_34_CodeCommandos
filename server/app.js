@@ -6,6 +6,10 @@ import { Server } from "socket.io";
 import path from 'path';
 import { fileURLToPath } from 'url';
 import userRouter from './routes/user.routes.js'
+import  groupRouter from './routes/group.routes.js'
+import teamRouter from './routes/team.routes.js'
+import messageRouter from './routes/message.routes.js'
+import hackathonRouter from './routes/hackathon.routes.js'  
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -76,4 +80,10 @@ app.use(cookieParser());
 
 
 app.use('/api/v1/users',userRouter);
+app.use('/api/v1/groups',groupRouter);
+app.use('/api/v1/teams',teamRouter);
+app.use('/api/v1/messages',messageRouter);
+app.use('/api/v1/hackathons',hackathonRouter);
+
+
 export default server;

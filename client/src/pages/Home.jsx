@@ -10,7 +10,7 @@ import InteractiveCircles from "./InteractiveCircles";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { theme } = useTheme(); // Access the current theme
+  const { theme } = useTheme(); 
 
   return (
     <div
@@ -64,7 +64,7 @@ const Home = () => {
             </AwesomeButton>
           </motion.div>
 
-          {/* Right Section with Image */}
+         
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}

@@ -6,6 +6,10 @@ const hackathonSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  status:{
+    type: String,
+    enum: ['upcoming', 'active', 'completed'],
+  },
   organizerId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User', 

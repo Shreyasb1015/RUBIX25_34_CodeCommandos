@@ -1,0 +1,90 @@
+
+.navbar {
+  padding: 0.5rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  opacity: 0.9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.5s ease;
+}
+
+.navbar-light {
+  background: linear-gradient(to right, #3b82f6, #9333ea); 
+}
+
+.navbar-dark {
+  background: linear-gradient(to right, #1f2937, #1e40af); 
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo-btn {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navbar-item {
+  position: relative;
+}
+
+.navbar-link {
+  font-size: 1.1rem;
+  font-weight: 500;
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navbar-link:hover .navbar-underline {
+  transform: scaleX(1);
+}
+
+.navbar-underline {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-out;
+}
+
+.text-light {
+  color: black;
+}
+
+.text-dark {
+  color: white;
+}
+
+.underline-light {
+  background-color: black;
+}
+
+.underline-dark {
+  background-color: white;
+}

@@ -1,5 +1,5 @@
 const BASE_URL = "http://localhost:3000"
-const BASE_URL_2 = "http://localhost:8081"
+const BASE_URL_2 = "http://localhost:5000"
 const ADD = "api"
 const ADD2="v1"
 const USER = "users"

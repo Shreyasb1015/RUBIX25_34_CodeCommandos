@@ -16,7 +16,7 @@ const Register = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    role: 'User', 
+    roles: '', 
     checkbox: false,
   });
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const Register = () => {
   };
 
   const validateForm = () => {
-    const { username, email, password, confirmPassword, role, organization, checkbox } = formData;
+    const { username, email, password, confirmPassword, roles, organization, checkbox } = formData;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordRegex = /^.{8,16}$/;
 
@@ -54,7 +54,7 @@ const Register = () => {
       return false;
     }
 
-    if (!role) {
+    if (!roles) {
       toast.error('Please select a role.');
       return false;
     }
@@ -80,7 +80,7 @@ const Register = () => {
         toast.error(response.data.message || 'Registration failed.');
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
       toast.error(error.response?.data?.message || 'An error occurred.');
     }
   };
@@ -161,16 +161,16 @@ const Register = () => {
               <div className="register-input-icon">
                 <FaUser />
                 <select
-                  id="role"
-                  name="role"
-                  value={formData.role}
+                  id="roles"
+                  name="roles"
+                  value={formData.roles}
                   onChange={handleChange}
                   className="register-select"
                   required
                 >
-                  <option value="User">Participant</option>
-                  <option value="Admin">Organizer</option>
-                  <option value="Organisation">Judge</option>
+                  <option value="participant">participant</option>
+                  <option value="organizer">organizer</option>
+                  <option value="judge">judge</option>
                 </select>
               </div>
             </div>
