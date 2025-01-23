@@ -160,6 +160,32 @@ const getActiveAndUpcomingHackathons = asyncHandler(async (req, res) => {
     )
   );
 });
+const getHackathonById = asyncHandler(async (req, res) => {
+  const { hackathonId } = req.params;
+
+  if (!hackathonId) {
+      throw new ApiError(400, "Hackathon ID is required");
+  }
+
+  const hackathon = await Hackathon.findById(hackathonId)
+      .populate('organizerId', 'username email')
+      .populate('winnerId', 'teamName');
+
+  if (!hackathon) {
+      throw new ApiError(404, "Hackathon not found");
+  }
+
+  hackathon.status = determineHackathonStatus(
+      new Date(hackathon.startingDate),
+      new Date(hackathon.endingDate)
+  );
+
+  await hackathon.save();
+
+  return res.status(200).json(
+      new ApiResponse(200, hackathon, "Hackathon details fetched successfully")
+  );
+});
 
 export {
   createHackathon,
@@ -168,4 +194,5 @@ export {
   getActiveHackathons,
   getAllHackathons,
   getActiveAndUpcomingHackathons,
+  getHackathonById,
 };
