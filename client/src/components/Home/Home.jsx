@@ -5,17 +5,16 @@ import { useTheme } from "../../../contexts/ThemeContext.jsx";
 import { AwesomeButton } from "react-awesome-button";
 import "react-awesome-button/dist/styles.css";
 import { TypeAnimation } from "react-type-animation";
-import Spline from "@splinetool/react-spline";
 import Card from "../Card.jsx";
 import InteractiveCircles from "../InteractiveCircle/InteractiveCircles.jsx";
 import Navbar from "../Navbar/Navbar.jsx";
 import Footer from '../Footer/Footer.jsx'
 import homegif from '../../assets/work.gif'
-
+import {useSelector} from 'react-redux'
 const Home = () => {
   const navigate = useNavigate();
   const { theme } = useTheme(); 
-
+  const user = useSelector((state) => state.user.currentUser);
   return (
     <>
           <Navbar />

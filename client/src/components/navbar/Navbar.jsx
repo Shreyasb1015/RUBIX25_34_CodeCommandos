@@ -3,11 +3,25 @@ import { motion } from "framer-motion";
 import { useTheme } from "../../../contexts/ThemeContext"; // Import the custom hook
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const { theme } = useTheme();
   const navigate = useNavigate();
-
+  const roles = JSON.parse(localStorage.getItem('user')).roles
+  let items
+  switch (roles) {
+    case "organizer":
+      items = ["Home","Create","Discuss","My Profile",];
+      break;
+    case "participant":
+      items = ["Home", "Find", "MyProfile", "Discuss"];
+    case "judge":
+      items = ["Home", "Review", "MyProfile"];  
+    default:
+      items = []
+      break;
+  }
   return (
     <nav
       className={`navbar ${
@@ -41,7 +55,7 @@ const Navbar = () => {
           transition={{ duration: 0.5 }}
           className="navbar-links"
         >
-          {["Home", "About", "Contact", "Help"].map((item) => (
+          {items.map((item) => (
             <li key={item} className="navbar-item">
               <button
                 onClick={() => navigate(`/${item.toLowerCase()}`)}

@@ -7,6 +7,7 @@ import "react-awesome-button/dist/styles.css";
 import { TypeAnimation } from "react-type-animation";
 import Card from "./Card.jsx";
 import InteractiveCircles from "./InteractiveCircles";
+import {useSelector} from "react-redux"
 
 const Home = () => {
   const navigate = useNavigate();

@@ -8,7 +8,8 @@ import { TypeAnimation } from "react-type-animation";
 import Card from "../../components/Card";
 import InteractiveCircles from "../../components/InteractiveCircles";
 import "./Home.css";
-import Navbar from '../../components/navbar/Navbar'
+import Navbar from '../../components/Navbar/Navbar'
+
 
 const Home = () => {
   const navigate = useNavigate();

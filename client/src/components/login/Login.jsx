@@ -10,8 +10,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {LOGIN_ROUTE} from '../../utils/Routes'
 import { useDispatch } from 'react-redux';
-import { fetchUser } from '../../redux/slice/UserSlice'; 
-
+import {login} from "../../redux/slice/UserSlice"
 const Login = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -46,11 +45,11 @@ const Login = () => {
     try {
       const response = await axios.post(LOGIN_ROUTE, formData,{withCredentials: true});
       console.log(response);
-      
+      const data = response.data.data.loginInfo
+      localStorage.setItem('user',JSON.stringify(data))
       if (response.status === 200) {
         toast.success('Login successful!!', toastOptions);
-        
-        dispatch(fetchUser());
+
         setTimeout(()=>{navigate('/welcome')}, 3000);
         
       } else {
