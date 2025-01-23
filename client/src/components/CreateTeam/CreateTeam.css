@@ -1,0 +1,76 @@
+/* CreateTeam.css */
+.create-team-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f4f7fb;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin: 0 auto;
+}
+
+.create-team-form h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  width: 100%;
+  margin-left: 1050px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 30%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  color: black;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #6a5acd;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  font-size: 14px;
+  color: #aaa;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.next-button {
+  background-color: #6a5acd;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.next-button:hover {
+  background-color: #5b4d91;
+}
