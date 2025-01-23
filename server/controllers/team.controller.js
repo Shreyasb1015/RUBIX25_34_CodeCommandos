@@ -3,6 +3,7 @@ import { User } from "../models/user.models.js";
 import { Hackathon } from "../models/hackathon.models.js";
 import { sendTeamInviteEmail } from '../utils/mailservice.js'
 import {Group} from "../models/group.models.js";
+import mongoose from "mongoose";
 
 
 export const createTeam = async (req, res) => {
@@ -120,8 +121,8 @@ export const sendTeamInvite = async (req, res) => {
       return res.status(400).json({ message: 'Invalid team or hackathon ID' });
     }
 
-    const team = await Team.findById(mongoose.Types.ObjectId(teamId));
-    const hackathon = await Hackathon.findById(mongoose.Types.ObjectId(hackathonId));
+    const team = await Team.findById(teamId);
+    const hackathon = await Hackathon.findById(hackathonId);
     const user = await User.findOne({ email });
 
     if (!team || !hackathon || !user) {
@@ -133,6 +134,8 @@ export const sendTeamInvite = async (req, res) => {
 
     res.status(200).json({ message: 'Invitation email sent successfully' });
   } catch (error) {
+    console.log(error);
+    
     res.status(500).json({ message: 'Failed to send email', error });
   }
 };
