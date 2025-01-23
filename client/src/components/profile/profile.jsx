@@ -10,8 +10,27 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedUser, setUpdatedUser] = useState({});
 
+  // Badge levels and corresponding images
+  const levels = ["Beginner", "Intermediate", "Pro", "Master", "Legend"];
+  const badgeImages = {
+    Beginner: "/assets/badges/beginner.png",
+    Intermediate: "/assets/badges/intermediate.png",
+    Pro: "/assets/badges/pro.png",
+    Master: "/assets/badges/master.png",
+    Legend: "/assets/badges/legend.png",
+  };
+
   useEffect(() => {
     const localStorageUser = JSON.parse(localStorage.getItem("user"));
+
+    // Check if the user is a participant and assign "Beginner" badge by default if no level exists
+    if (localStorageUser?.roles?.includes("participant")) {
+      if (!localStorageUser?.level) {
+        localStorageUser.level = "Beginner"; // Assign "Beginner" badge if no level exists
+        localStorage.setItem("user", JSON.stringify(localStorageUser));
+      }
+    }
+
     setUser(localStorageUser);
     setUpdatedUser(localStorageUser || {}); // Set initial data for editing
   }, []);
@@ -55,12 +74,26 @@ const Profile = () => {
     setIsEditing(false);
   };
 
-  const renderBadges = (level) => {
-    const badges = [];
-    for (let i = 0; i < 5; i++) {
-      badges.push(i < level ? "★" : "☆");
-    }
-    return badges.join(" ");
+  const renderBadgeGallery = () => {
+    // Get the user's current level and display the corresponding badges
+    const userLevel = user.level || "Beginner"; // Default to "Beginner" if no level exists
+    const userLevelIndex = levels.indexOf(userLevel); // Get the index of the user's current level
+
+    // Show badges up to the user's current level
+    return (
+      <div className="badge-gallery">
+        {levels.slice(0, userLevelIndex + 1).map((level, index) => (
+          <div key={index} className="badge">
+            <img
+              src={badgeImages[level]} // Display the appropriate badge image
+              alt={`${level} Badge`}
+              className="badge-image"
+            />
+            <h4>{level}</h4>
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -70,7 +103,7 @@ const Profile = () => {
         <div className="profile-header">
           <div className="profile-image">
             <img
-              src={updatedUser.profileImage || "/default-avatar.png"}
+              src={updatedUser.profileImage || "/default-logo.png"}
               alt="Profile"
               className="profile-pic"
             />
@@ -133,27 +166,19 @@ const Profile = () => {
               onChange={handleInterestChange}
             />
             <div className="btn">
-
-            <button onClick={handleSaveChanges} className="save-button">
-              Save Changes
-            </button>
-            <button onClick={handleCancelEdit} className="cancel-button">
-              Cancel
-            </button>
+              <button onClick={handleSaveChanges} className="save-button">
+                Save Changes
+              </button>
+              <button onClick={handleCancelEdit} className="cancel-button">
+                Cancel
+              </button>
             </div>
           </div>
         )}
 
         <div className="profile-badges">
-          <h3>Badges</h3>
-          <div className="badge-levels">
-            {[1, 2, 3, 4, 5].map((level) => (
-              <div key={level} className="badge">
-                <h4>Level {level}</h4>
-                <div>{renderBadges(level)}</div>
-              </div>
-            ))}
-          </div>
+          <h3>Badges Gallery</h3>
+          {renderBadgeGallery()} {/* Display badges gallery */}
         </div>
       </div>
       <Footer />
