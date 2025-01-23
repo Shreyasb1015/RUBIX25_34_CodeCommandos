@@ -12,7 +12,7 @@ const Navbar = () => {
   let items
   switch (roles) {
     case "organizer":
-      items = ["Home","Create","Discuss","My Profile",];
+      items = ["Home","Create-hackathon","Discuss","Profile",];
       break;
     case "participant":
       items = ["Home", "Find", "MyProfile", "Discuss"];

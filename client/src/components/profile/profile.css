@@ -1,0 +1,150 @@
+/* Profile Page Styling */
+.profile-page {
+  font-family: Arial, sans-serif;
+  transition: all 0.3s ease;
+}
+
+.profile-page.light {
+  background-color: #fff;
+  color: #000;
+}
+
+.profile-page.dark {
+  background-color: #333;
+  color: #fff;
+}
+
+.profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-image {
+  margin-right: 20px;
+}
+
+.profile-pic {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-info h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.profile-stats p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.profile-interests {
+  margin-top: 10px;
+}
+
+.profile-interests .interest-list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.interest-item {
+  background-color: #120d0d;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.edit-profile-form {
+  margin-top: 30px;
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+
+.edit-profile-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.edit-profile-form button {
+  padding: 10px 10px;
+  border: none;
+  background-color: #44cb7c;
+  color: #fff;
+  cursor: pointer;
+  margin-right: 10px;
+  border-radius: 4px;
+  
+}
+
+.btn{
+  display: flex;
+  
+}
+.edit-profile-form button:hover {
+  background-color: #0ddd83;
+}
+
+.profile-badges {
+  margin-top: 40px;
+}
+
+.badge-levels {
+  flex-wrap: wrap;
+}
+
+.badge {
+  width: 18%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.badge h4 {
+  font-size: 20px;
+}
+
+.badge div {
+  font-size: 24px;
+  color: gold;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #3d89d9;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.profile-page .profile-interests ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-page .profile-interests li {
+  margin: 5px 0;
+}
