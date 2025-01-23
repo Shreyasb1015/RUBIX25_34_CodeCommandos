@@ -125,7 +125,6 @@ const getActiveAndUpcomingHackathons = asyncHandler(async (req, res) => {
     status: { $in: ['active', 'upcoming'] }
   }).sort({ startingDate: 1 });
 
-  // Update status for each hackathon
   hackathons.forEach((hackathon) => {
     hackathon.status = determineHackathonStatus(
       new Date(hackathon.startingDate), 
@@ -142,6 +141,30 @@ const getActiveAndUpcomingHackathons = asyncHandler(async (req, res) => {
   );
 });
 
+const getHackathonById = asyncHandler(async (req, res) => {
+  const { hackathonId } = req.params;
+
+  if (!hackathonId) {
+      throw new ApiError(400, "Hackathon ID is required");
+  }
+
+  const hackathon = await Hackathon.findById(hackathonId);
+
+  if (!hackathon) {
+      throw new ApiError(404, "Hackathon not found");
+  }
+
+
+  hackathon.status = determineHackathonStatus(
+      new Date(hackathon.startingDate),
+      new Date(hackathon.endingDate)
+  );
+
+  return res.status(200).json(
+      new ApiResponse(200, hackathon, "Hackathon fetched successfully")
+  );
+});
+
 export {
   createHackathon,
   updateHackathon,
@@ -149,4 +172,5 @@ export {
   getActiveHackathons,
   getAllHackathons,
   getActiveAndUpcomingHackathons,
+  getHackathonById
 };

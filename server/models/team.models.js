@@ -13,7 +13,7 @@ const teamSchema = new mongoose.Schema({
       required: true,
       validate: {
         validator: function (members) {
-          return members.length >= 1; 
+          return members.length >= 1 && members.length <= 4; 
         },
         message: 'A team must have at least one member.',
       },

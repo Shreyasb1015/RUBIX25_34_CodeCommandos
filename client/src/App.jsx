@@ -2,8 +2,8 @@ import React from "react";
 import { ThemeProvider } from "../contexts/ThemeContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import HackathonDetail from "./components/hackathondetail/HackathonDetail.jsx";
 
-// Importing Components
 import Home from "./components/Home/Home";
 import AboutUs from "./components/AboutUS/AboutUs";
 import Welcome from "./components/welcome/Welcome";
@@ -23,7 +23,8 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/welcome" element={<Welcome />} />
-            <Route path="/create-hackathon" element={<CreateHackathon />} /> {/* Adding CreateHackathon Route */}
+            <Route path="/create" element={<CreateHackathon />} /> 
+            <Route path="/hackathons/:hackathonId" element={<HackathonDetail />} />
           </Routes>
         </AnimatePresence>
       </Router>
