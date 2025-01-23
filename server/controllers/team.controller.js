@@ -94,19 +94,66 @@ export const acceptInvite = async (req, res) => {
 
   try {
     const team = await Team.findById(teamId);
-    if (!team) return res.status(404).json({ message: 'Team not found' });
+    if (!team) {
+      return res
+        .status(404)
+        .send(
+          "<h1>Team not found</h1><p>The team you are looking for does not exist.</p>"
+        );
+    }
 
     if (team.membersId.includes(userId)) {
-      return res.status(400).json({ message: 'User already in the team' });
+      return res
+        .status(400)
+        .send(
+          "<h1>User Already in the Team</h1><p>You are already a member of this team.</p>"
+        );
     }
 
     team.membersId.push(userId);
     await team.save();
-    res.status(200).json({ message: 'Invite accepted', team });
+
+    const htmlResponse = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Invitation Accepted</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+          }
+          h1 {
+            color: #2d72d9;
+          }
+          p {
+            font-size: 18px;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>Invitation Accepted</h1>
+        <p>Welcome to the team <strong>${team.name}</strong>!</p>
+        <p>We’re excited to have you onboard.</p>
+      </body>
+      </html>
+    `;
+
+    res.status(200).send(htmlResponse);
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error', error });
+    res
+      .status(500)
+      .send(
+        "<h1>Internal Server Error</h1><p>Something went wrong while processing your request.</p>"
+      );
   }
 };
+
 
 export const declineInvite = async (req, res) => {
   res.status(200).json({ message: 'Invite declined' });
