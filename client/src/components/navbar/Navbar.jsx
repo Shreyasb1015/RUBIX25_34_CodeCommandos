@@ -15,9 +15,11 @@ const Navbar = () => {
       items = ["Home","Create-hackathon","Discuss","Profile",];
       break;
     case "participant":
-      items = ["Home", "Find", "Profile", "Discuss"];
+      items = ["Home", "Find", "MyProfile", "Discuss"];
+      break;
     case "judge":
-      items = ["Home", "Review", "Profile"];  
+      items = ["Home", "Review", "MyProfile"];  
+      break;
     default:
       items = []
       break;
@@ -31,7 +33,6 @@ const Navbar = () => {
       }`}
     >
       <div className="navbar-container">
-        {/* Navbar Logo */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}

@@ -89,7 +89,7 @@ body {
     }
     input::placeholder{
   
-      color:black;
+      color:white;
       font-weight:bold
     }
     .input-icon {
@@ -98,7 +98,6 @@ body {
       border: 1px solid #ccc;
       border-radius: 5px;
       padding: 10px;
-      background-color: #f9f9f9;
     }
     body{
       background-color: #1a1a1a;
@@ -108,8 +107,8 @@ body {
       border: none;
       outline: none;
       padding: 10px;
-      background-color: #fff;
       flex: 1;
+      color:white;
     }
     .login-title-icon{
 

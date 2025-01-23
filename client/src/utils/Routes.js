@@ -17,3 +17,4 @@ export const CHATBOT_URL=`${BASE_URL_2}/query`
 
 export const CREATE_HAKATHON_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/hackathons/create`
 export const GET_ACTIVE_UPCOMING_HACKATHONS_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/hackathons/active-upcoming`
+export const GET_HACKATHON_BY_ID_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/hackathons`

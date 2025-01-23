@@ -2,6 +2,8 @@ import { Team } from "../models/team.models.js";
 import { User } from "../models/user.models.js"; 
 import { Hackathon } from "../models/hackathon.models.js";
 import { sendTeamInviteEmail } from '../utils/mailservice.js'
+import {Group} from "../models/group.models.js";
+
 
 export const createTeam = async (req, res) => {
   try {
@@ -32,7 +34,7 @@ export const createTeam = async (req, res) => {
 
 export const updateTeam = async (req, res) => {
   try {
-    const { teamId, newMemberId, projectLink, progress } = req.body;
+    const { teamId, newMemberId, projectLink, progress,hackathonId,user_id } = req.body;
 
     const team = await Team.findById(teamId);
     if (!team) return res.status(404).json({ message: "Team not found" });
@@ -44,6 +46,11 @@ export const updateTeam = async (req, res) => {
 
       if (!team.membersId.includes(newMemberId)) {
         team.membersId.push(newMemberId);
+        const group=await Group.find({hackathonId:hackathonId});
+        if(group){
+          group.participantsId.push(newMemberId);
+          await group.save();
+        }  
       } else {
         return res.status(400).json({ message: "Member already in the team" });
       }

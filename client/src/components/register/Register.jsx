@@ -16,7 +16,7 @@ const Register = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    roles: '', 
+    roles: 'participant', 
     checkbox: false,
   });
   const navigate = useNavigate();
