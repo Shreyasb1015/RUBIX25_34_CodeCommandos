@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import os
 import chromadb
 from chromadb.config import Settings
+from flask_cors import CORS
 
 
 
@@ -16,6 +17,8 @@ collection = chroma_client.get_or_create_collection(name="database_users")
 
 client = Groq(api_key=GROQ_API_KEY)
 app = Flask(__name__)
+CORS(app,supports_credentials=True)
+
 
 
 PROMPT_TEMPLATE = """
@@ -132,7 +135,7 @@ def fetch_relevant_users():
 
     results = collection.query(
         query_texts=query_texts,
-        n_results=5 
+        n_results=5 ,
         include=["metadatas"]
     )
 

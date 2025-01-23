@@ -11,16 +11,9 @@ export const TOKEN_ROUTE = `${BASE_URL}/${ADD}/${USER}/verify-token`
 export const EDIT_PROFILE_ROUTE = `${BASE_URL}/${ADD}/${USER}/`
 
 
-export const IDENTIFY_ROUTE = `${BASE_URL_2}/identify`
-export const POACH_ROUTE = `${BASE_URL_2}/poach`
+export const CHATBOT_URL=`${BASE_URL_2}/query`
 
-const PROJECT_BASE_URL = `${BASE_URL}/${ADD}/projects`;
 
-export const CREATE_PROJECT_ROUTE = `${PROJECT_BASE_URL}`;
-export const GET_ALL_PROJECTS_ROUTE = `${PROJECT_BASE_URL}`;
-export const GET_PROJECT_BY_ID_ROUTE = (id) => `${PROJECT_BASE_URL}/${id}`;
-export const GET_PROJECT_BY_ORGANIZATION_ROUTE=(id)=>`${PROJECT_BASE_URL}/organization/${id}`
-export const UPDATE_PROJECT_ROUTE = (id) => `${PROJECT_BASE_URL}/${id}`;
-export const DELETE_PROJECT_ROUTE = (id) => `${PROJECT_BASE_URL}/${id}`;
-export const ADD_MEDIA_TO_PROJECT_ROUTE = (id) => `${PROJECT_BASE_URL}/${id}/media`;
-export const DONATE_TO_PROJECT_ROUTE = (id) => `${PROJECT_BASE_URL}/${id}/donate`;
+
+export const CREATE_HAKATHON_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/hackathons/create`
+export const GET_ACTIVE_UPCOMING_HACKATHONS_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/hackathons/active-upcoming`

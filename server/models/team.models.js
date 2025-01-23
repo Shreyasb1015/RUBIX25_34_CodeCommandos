@@ -41,6 +41,9 @@ const teamSchema = new mongoose.Schema({
       enum: ['Ideation', 'In Progress', 'Completed'],
       default: 'Ideation',
     },
+    ranking:{
+      type: Number,
+    },
     createdAt: {
       type: Date,
       default: Date.now,

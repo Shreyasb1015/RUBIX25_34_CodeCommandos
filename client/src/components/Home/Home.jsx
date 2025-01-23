@@ -62,7 +62,7 @@ const Home = () => {
                         solutions. Our AI-powered project evaluation system ensures fair and 
                         comprehensive assessment of your hackathon submissions.
 
-                        <p style={{color:'yellow',marginTop:'5px',marginBottom:'8px'}}>Join us for an exciting journey of innovation and creativity!</p>
+                        <p style={{color:'orange',marginTop:'5px',marginBottom:'8px'}}>Join us for an exciting journey of innovation and creativity!</p>
                       </motion.p>
                       <AwesomeButton
                         type="primary"
