@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import "./CreateHackathon.css";
@@ -6,6 +6,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { CREATE_HAKATHON_ROUTE } from "../../utils/Routes";
+import { GET_ALL_JUDGES } from '../../utils/Routes';
+import { useNavigate } from "react-router-dom";
 
 const CreateHackathon = () => {
   const toastOptions = {
@@ -18,10 +20,25 @@ const CreateHackathon = () => {
     progress: undefined,
     theme: "dark",
   };
+  const navigate = useNavigate();
 
   const [steps, setSteps] = useState([
     { text: "", date: "" }, 
   ]);
+  const [judges, setJudges] = useState([]);
+  const [selectedJudgeId, setSelectedJudgeId] = useState('');
+  useEffect(() => {
+    const fetchJudges = async () => {
+      try {
+        const response = await axios.get(GET_ALL_JUDGES, { withCredentials: true });
+        console.log("Judges:", response);
+        setJudges(response.data.data.judges);
+      } catch (error) {
+        console.error('Error fetching judges:', error);
+      }
+    };
+    fetchJudges();
+  }, []);
 
   const handleStepInputChange = (index, field, value) => {
     const updatedSteps = [...steps];
@@ -77,11 +94,13 @@ const CreateHackathon = () => {
     formData.append("organizerId",user);
     formData.append("startingDate", hackathonDetails.startDate);
     formData.append("endingDate", hackathonDetails.endDate);
-    formData.append("hackathonSteps", steps);
+    //formData.append("hackathonSteps", JSON.stringify(steps));
     formData.append("domain", hackathonDetails.domain);
     formData.append("prize", hackathonDetails.prizePool1st);
     formData.append("duration", hackathonDetails.duration);
     formData.append("mode", hackathonDetails.mode);
+    formData.append("judgeId", selectedJudgeId);
+
 
     try {
       const response = await axios.post(CREATE_HAKATHON_ROUTE, formData, {
@@ -98,6 +117,10 @@ const CreateHackathon = () => {
           prizePool3rd: "",
         });
         setShowPreview(false);
+        toast.success("Hackathon created successfully!", toastOptions);
+        setTimeout(() => {
+          navigate('/');
+        }, 3000);
       } else {
         toast.error("Failed to create hackathon!!", toastOptions);
       }
@@ -252,6 +275,19 @@ const CreateHackathon = () => {
                 <option value="hybrid">Hybrid</option>
               </select>
             </div>
+            <select 
+                name="judgeId"
+                value={selectedJudgeId}
+                onChange={(e) => setSelectedJudgeId(e.target.value)}
+                required
+              >
+                <option value="">Select a judge</option>
+                {judges.map((judge) => (
+                  <option key={judge.id} value={judge.id}>
+                    {judge.username}
+                  </option>
+                ))}
+              </select>
           </form>
         </div>
         {showPreview && (

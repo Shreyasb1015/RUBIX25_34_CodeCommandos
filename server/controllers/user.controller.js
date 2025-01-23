@@ -218,6 +218,27 @@ const getJudgeActiveHackathons = asyncHandler(async (req, res) => {
     );
 });
 
+const getAllJudges = asyncHandler(async (req, res) => {
+    const judges = await User.find({ roles: "judge" })
+        .select("username _id")
+        .lean();
+  
+    if (!judges.length) {
+        return res.status(200).json(
+            new ApiResponse(200, [], "No judges found in the system")
+        );
+    }
+  
+    const judgeData = judges.map(judge => ({
+        id: judge._id,
+        username: judge.username
+    }));
+  
+    return res.status(200).json(
+        new ApiResponse(200, { judges: judgeData }, "Judges fetched successfully")
+    );
+  });
+
 export {
     registerUser,
     loginUser,
@@ -226,7 +247,8 @@ export {
     getAllUsers,
     updateProfile,
     getUserById,
-    getJudgeActiveHackathons
+    getJudgeActiveHackathons,
+    getAllJudges
 }
 
 

@@ -27,6 +27,7 @@ const createHackathon = asyncHandler(async (req, res) => {
       prize,
       description,
       hackathonSteps,
+      judgeId,
     } = req.body;
 
     if (!req.file) {
@@ -74,6 +75,7 @@ const createHackathon = asyncHandler(async (req, res) => {
       hackathonSteps,
       status,
       bannerImage: banner.url,
+      judgeId : judgeId ? judgeId : '',
     });
 
     res
@@ -186,6 +188,7 @@ const getHackathonById = asyncHandler(async (req, res) => {
       new ApiResponse(200, hackathon, "Hackathon details fetched successfully")
   );
 });
+
 
 export {
   createHackathon,

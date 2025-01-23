@@ -12,7 +12,7 @@ import Register from './components/register/Register';
 import CreateHackathon from "../src/components/createHackathon/createHackathon.jsx";
 import HackathonListPage from "./pages/HackthonListPage.jsx"; 
 import Profile from "./components/profile/profile.jsx"; 
-import CreateTeamPage from './pages/CreateTeamPage.jsx'
+//import CreateTeamPage from './pages/CreateTeamPage.jsx'
 
 
 const App = () => {
@@ -27,11 +27,12 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/welcome" element={<Welcome />} />
-            <Route path="/create" element={<CreateHackathon />} /> 
+            <Route path="/create-hackathon" element={<CreateHackathon />} /> 
             <Route path="/hackathons/:hackathonId" element={<HackathonDetail />} />
             <Route path="/find" element={<HackathonListPage />} />
-            <Route path="/myprofile" element={<Profile />} /> {/* Adding Profile Route */}
-            <Route path="/create-team" element={<CreateTeamPage />} />
+            <Route path="/myprofile" element={<Profile />} />
+             {/* Adding Profile Route */}
+            
 
 
           </Routes>

@@ -3,21 +3,38 @@ import { ThemeContext } from "../../../contexts/ThemeContext"; // Import the The
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import "./profile.css";
+import defaultProfilePic from '../../assets/badges/default-logo.png'
+import beginnerBadge from '../../assets/badges/beginner.png';
+import intermediateBadge from '../../assets/badges/intermediate.png';
+import proBadge from '../../assets/badges/pro.png';
+import masterBadge from '../../assets/badges/master.png';
+import legendBadge from '../../assets/badges/legend.png';
+import { useNavigate } from "react-router-dom";
+
+const badgeImages = {
+  beginner: beginnerBadge,
+  intermediate: intermediateBadge,
+  pro: proBadge,
+  master: masterBadge,
+  legend: legendBadge
+};
+
+
+
+// ...existing code...
 
 const Profile = () => {
   const { theme } = useContext(ThemeContext); // Use theme from context
   const [user, setUser] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [updatedUser, setUpdatedUser] = useState({});
+  const navigate = useNavigate();
 
   // Badge levels and corresponding images
-  const levels = ["Beginner", "Intermediate", "Pro", "Master", "Legend"];
-  const badgeImages = {
-    Beginner: "/assets/badges/beginner.png",
-    Intermediate: "/assets/badges/intermediate.png",
-    Pro: "/assets/badges/pro.png",
-    Master: "/assets/badges/master.png",
-    Legend: "/assets/badges/legend.png",
+  const levels = ["beginner", "intermediate", "pro", "master", "legend"];
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/login');
   };
 
   useEffect(() => {
@@ -103,7 +120,7 @@ const Profile = () => {
         <div className="profile-header">
           <div className="profile-image">
             <img
-              src={updatedUser.profileImage || "/default-logo.png"}
+              src={updatedUser.profileImage || defaultProfilePic}
               alt="Profile"
               className="profile-pic"
             />
@@ -143,6 +160,13 @@ const Profile = () => {
             <button onClick={handleEditClick} className="edit-button">
               Edit Profile
             </button>
+            <button 
+             className="logout-button"
+             onClick={handleLogout}
+             style={{backgroundColor:'red', color:'white',marginTop:'10px'}}
+            >
+            Logout
+          </button>
           </div>
         </div>
 

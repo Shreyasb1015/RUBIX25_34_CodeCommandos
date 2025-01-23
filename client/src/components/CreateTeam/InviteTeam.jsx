@@ -3,22 +3,19 @@ import axios from 'axios';
 import './InviteTeam.css';
 import { FETCH_RELEVANT_TEAMMATES } from '../../utils/Routes';
 
-
-
 const InviteTeam = () => {
   const [teamMembers, setTeamMembers] = useState([]);
   const [suggestedUsers, setSuggestedUsers] = useState([]);
   const [newMember, setNewMember] = useState({ name: '', email: '' });
 
   useEffect(() => {
-    // Fetch user info from localStorage
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log("User from localStorage:", user); // Debug log
-    const userInterests = user?.interests || ['Machine Learning'];
+    console.log("User from localStorage:", user); 
+    const userInterests =
+      user?.interests?.length > 0 ? user.interests : ['Machine Learning', 'Statistics'];
 
-    // Fetch relevant users based on interests
     axios
-      .post(FETCH_RELEVANT_TEAMMATES, { interests: userInterests },{withCredentials:true})
+      .post(FETCH_RELEVANT_TEAMMATES, { interests: userInterests }, { withCredentials: true })
       .then((response) => {
         const relevantUsers = response.data.relevant_users.documents[0] || [];
         const parsedUsers = relevantUsers.map((doc) => {
@@ -26,11 +23,12 @@ const InviteTeam = () => {
           const emailMatch = doc.match(/Email: (.*?) /);
           const interestsMatch = doc.match(/Interests: (.*)/);
 
-          console.log(response);
           return {
             username: usernameMatch ? usernameMatch[1] : 'N/A',
             email: emailMatch ? emailMatch[1] : 'N/A',
-            interests: interestsMatch ? interestsMatch[1].split(',').map((i) => i.trim()) : [],
+            interests: interestsMatch
+              ? interestsMatch[1].split(',').map((i) => i.trim())
+              : [],
           };
         });
         setSuggestedUsers(parsedUsers);
@@ -49,7 +47,7 @@ const InviteTeam = () => {
   };
 
   const handleSendRequest = (member) => {
-    console.log(`Invitation sent to ${member.username} (${member.email})`);
+    console.log(`Invitation sent to ${member.name || member.username} (${member.email})`);
   };
 
   return (
@@ -62,8 +60,16 @@ const InviteTeam = () => {
         <div className="add-member-container">
           {teamMembers.map((member, index) => (
             <div key={index} className="team-member">
-              <div className="member-name">{member.name}</div>
-              <div className="member-email">{member.email}</div>
+              <div>
+                <div className="member-name">{member.name}</div>
+                <div className="member-email">{member.email}</div>
+              </div>
+              <button
+                onClick={() => handleSendRequest(member)}
+                className="send-request"
+              >
+                Invite
+              </button>
             </div>
           ))}
 
@@ -71,16 +77,24 @@ const InviteTeam = () => {
             <input
               type="text"
               placeholder="Name"
+              style={{ color: 'white' }}
               value={newMember.name}
-              onChange={(e) => setNewMember({ ...newMember, name: e.target.value })}
+              onChange={(e) =>
+                setNewMember({ ...newMember, name: e.target.value })
+              }
             />
             <input
               type="email"
               placeholder="Email"
+              style={{ color: 'white' }}
               value={newMember.email}
-              onChange={(e) => setNewMember({ ...newMember, email: e.target.value })}
+              onChange={(e) =>
+                setNewMember({ ...newMember, email: e.target.value })
+              }
             />
-            <button onClick={handleAddMember} className="add-button">+</button>
+            <button onClick={handleAddMember} className="add-button">
+              +
+            </button>
           </div>
         </div>
       </div>
@@ -98,8 +112,11 @@ const InviteTeam = () => {
                     <strong>Interests:</strong> {user.interests.join(', ') || 'N/A'}
                   </div>
                 </div>
-                <button onClick={() => handleSendRequest(user)} className="send-request">
-                  Send Request
+                <button
+                  onClick={() => handleSendRequest(user)}
+                  className="send-request"
+                >
+                  Invite
                 </button>
               </div>
             ))
