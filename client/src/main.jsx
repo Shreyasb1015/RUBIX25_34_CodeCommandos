@@ -4,14 +4,11 @@ import {Provider} from 'react-redux'
 import store from './redux/store.js'
 import ReactDOM from 'react-dom/client'
 import React from 'react'
-import { ThemeProvider } from "../contexts/ThemeContext";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-    <ThemeProvider>
          <App />
-    </ThemeProvider>  
     </Provider>
   </React.StrictMode>,
 )

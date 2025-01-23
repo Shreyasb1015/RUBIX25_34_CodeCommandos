@@ -37,19 +37,23 @@ body {
 }
 
 .register-form-header {
-    margin-bottom: 20px;
-    text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
 .register-header-title {
     color: var(--primary-color);
     font-size: 40px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .register-title-icon {
-    margin-right: 5px;
-    margin-top: 40px;
-    margin-bottom:-5px;
+  margin-right: 8px;
+  font-size: 3.5rem;
 }
 
 .register-form-group {

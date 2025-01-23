@@ -72,7 +72,7 @@ const Login = () => {
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ duration: 1, ease: 'easeOut' }}
               >
-                <FaCode className="title-icon" />
+                <FaCode className="login-title-icon" />
                    Login
               </motion.h2>
             </div>

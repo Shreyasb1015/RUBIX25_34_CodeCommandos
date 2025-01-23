@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useTheme } from "../../../contexts/ThemeContext";
+import { useTheme } from "../../../contexts/ThemeContext"; // Import the custom hook
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 

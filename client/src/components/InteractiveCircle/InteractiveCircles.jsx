@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import ThemeToggleButton from "./ThemeToggleButton";
+import ThemeToggleButton from "../ThemeToggleButton.jsx";
 
 const InteractiveCircles = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,13 +21,12 @@ const InteractiveCircles = () => {
         >
           {/* Language Selector */}
           <motion.div
-            className="w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg cursor-pointer"
+            className="circle w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg cursor-pointer"
             whileHover={{ scale: 1.1 }}
             onClick={() => alert("Select your language")}
           >
-            
             <img
-            src="https://cdn-icons-png.flaticon.com/512/2620/2620585.png"
+              src="https://cdn-icons-png.flaticon.com/512/2620/2620585.png"
               alt="Language Icon"
               className="w-8 h-8"
               title="Languages icons created by Freepik - Flaticon"
@@ -36,7 +35,7 @@ const InteractiveCircles = () => {
 
           {/* Chatbot */}
           <motion.div
-            className="w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg cursor-pointer"
+            className="circle w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg cursor-pointer"
             whileHover={{ scale: 1.1 }}
             onClick={() => alert("Chatbot will open here!")}
           >
@@ -50,7 +49,7 @@ const InteractiveCircles = () => {
 
           {/* Theme Toggle */}
           <motion.div
-            className="w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg cursor-pointer"
+            className="circle w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg cursor-pointer"
             whileHover={{ scale: 1.1 }}
           >
             <ThemeToggleButton />
@@ -61,7 +60,7 @@ const InteractiveCircles = () => {
       {/* Main Circle */}
       <motion.div
         onClick={handleClick}
-        className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg cursor-pointer"
+        className="circle w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg cursor-pointer"
         whileHover={{ scale: 1.1 }}
         animate={{ rotate: isOpen ? 45 : 0 }}
         transition={{ duration: 0.3 }}

@@ -1,0 +1,56 @@
+/* General Styles */
+.timeline-container {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.timeline-title {
+  color: var(--highlight-color);
+}
+
+.timeline-date {
+  font-size: 1rem;
+  color: var(--secondary-text-color);
+}
+
+.timeline-card {
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.timeline-event-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.timeline-event-description {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Light Theme */
+.light-bg {
+  --bg-color: #ffffff;
+  --text-color: #1a202c;
+  --secondary-text-color: #718096;
+  --highlight-color: #3182ce;
+}
+
+.light-card {
+  background-color: #f7fafc;
+  color: #1a202c;
+}
+
+/* Dark Theme */
+.dark-bg {
+  --bg-color: #1a202c;
+  --text-color: #f7fafc;
+  --secondary-text-color: #a0aec0;
+  --highlight-color: #63b3ed;
+}
+
+.dark-card {
+  background-color: #2d3748;
+  color: #f7fafc;
+}

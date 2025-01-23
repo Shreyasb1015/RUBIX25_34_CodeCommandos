@@ -1,9 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useTheme } from "../contexts/ThemeContext";
+import { useTheme } from "../../../contexts/ThemeContext";  // Assuming you have a ThemeContext
 
 const Footer = () => {
-  const { theme } = useTheme();
+  const { theme } = useTheme(); // Get current theme from context
 
   return (
     <motion.footer
@@ -14,7 +14,7 @@ const Footer = () => {
         theme === "dark"
           ? "bg-gradient-to-b from-black to-blue-900"
           : "bg-gradient-to-b from-blue-500 to-purple-500"
-      } text-white py-6 opacity-90 shadow-lg`} // Increased height
+      } text-white py-6 opacity-90 shadow-lg`} // Footer class with dynamic theme-based styles
     >
       <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
         {/* Left Section */}

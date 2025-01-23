@@ -13,7 +13,7 @@ import {
   FaChartLine,
   FaGlobe,
 } from "react-icons/fa";
-import { useTheme } from "../contexts/ThemeContext"; // Import the custom hook
+import { useTheme } from "../../../contexts/ThemeContext"; // Import the custom hook
 
 const Timeline = () => {
   const { theme } = useTheme(); // Access the current theme

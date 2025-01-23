@@ -1,0 +1,116 @@
+/* About Us Container */
+.aboutus-container {
+  width: 100%;
+  min-height: 100vh;
+  transition: background-color 0.3s ease;
+}
+
+.aboutus-container-light {
+  background-color: #ffffff;
+}
+
+.aboutus-container-dark {
+  background-color: #1e293b;
+}
+
+/* About Us Content */
+.aboutus-content {
+  width: 100%;
+  padding: 3rem 1rem;
+}
+
+.aboutus-heading {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 3rem;
+  transition: color 0.3s ease;
+}
+
+.text-light {
+  color: #1f2937;
+}
+
+.text-dark {
+  color: #f9fafb;
+}
+
+/* About Us Grid */
+.aboutus-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+@media (min-width: 1024px) {
+  .aboutus-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 cards in a row for large screens */
+  }
+}
+
+/* About Us Card */
+.aboutus-card {
+  border-radius: 1rem;
+  padding: 1rem;
+  border: 2px solid rgba(0, 0, 0, 0.1); /* Light border for separation */
+  background-clip: padding-box; /* Ensure the background does not overlap the border */
+  transition: transform 0.5s ease, box-shadow 0.3s ease, opacity 0.5s ease, border-color 0.3s ease;
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.aboutus-card-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.aboutus-card-light {
+  background-color: #f1f5f9;
+  color: #1e293b;
+  border-color: #d1d5db; /* Light gray border */
+}
+
+.aboutus-card-dark {
+  background-color: #1e293b;
+  color: #f9fafb;
+  border-color: #475569; /* Dark gray border */
+}
+
+.aboutus-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: #0284c7; /* Change border color on hover */
+}
+
+/* About Us Card Image */
+.aboutus-card-image {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  margin: 0 auto;
+  object-fit: cover;
+  border: 2px solid rgba(0, 0, 0, 0.2); /* Border around the image */
+}
+
+/* About Us Card Details */
+.aboutus-card-details {
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.aboutus-card-quote {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.aboutus-card-figcaption {
+  margin-top: 0.5rem;
+}
+
+.aboutus-card-author {
+  color: #0284c7;
+}
+
+.aboutus-card-role {
+  color: #64748b;
+}
