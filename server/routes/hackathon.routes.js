@@ -12,7 +12,7 @@ import { handlehackathonBanner } from '../middlewares/hackathonBanner.js';
 const router = Router();
 
 router.route('/create')
-  .post(verifyJWT, handlehackathonBanner, createHackathon);
+  .post(handlehackathonBanner, createHackathon);
 
 router.route('/update/:id')
   .patch(verifyJWT, handlehackathonBanner, updateHackathon);
