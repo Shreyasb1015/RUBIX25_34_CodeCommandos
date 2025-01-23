@@ -2,7 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // Assuming you're using react-router-dom
 import styles from './HackthonCard.module.css'
 import { AwesomeButton } from "react-awesome-button";
+import { useNavigate } from 'react-router-dom';
 const HackathonCard = ({ hackathon }) => {
+  const navigate = useNavigate();
+  const handleRegister = () => {
+    navigate(`/hackathons/${hackathon._id}`);
+  };
   return (
     <div className={styles.hackathoncard}>
   <div className="hackathon-header">
@@ -30,7 +35,7 @@ const HackathonCard = ({ hackathon }) => {
       Explore
     </Link>
   </div>
-  <AwesomeButton type="primary" ripple={true} onPress={() => navigate("/analyze")} className="get-started-btn mt-4">
+  <AwesomeButton type="primary" ripple={true} onPress={handleRegister} className="get-started-btn mt-4">
     Register
     </AwesomeButton>
 </div>

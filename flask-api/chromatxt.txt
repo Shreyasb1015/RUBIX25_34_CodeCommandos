@@ -1,0 +1,20 @@
+{
+    "username": "GauravMahadeshwar",
+    "user_id": "6792810c67cc464344506fdd",
+    "interests": ["Web Development", "Machine Learning","Blockchain"]
+}
+{
+    "username": "ShreyasBagwe",
+    "user_id": "6792812b67cc464344506fe",
+    "interests": ["Machine Learning","Artificial Intelligence","Deep learning"]
+}
+{
+    "username": "SuryanaryanPanigrahy",
+    "user_id": "6792817867cc464344506fe9",
+    "interests": ["Artificial Intelligence","Data Science"]
+}
+{
+    "username": "ToshitHole",
+    "user_id": "6792819f67cc464344506fef",
+    "interests": ["Web Development","App Development"]
+}

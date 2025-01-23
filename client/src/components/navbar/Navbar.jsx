@@ -18,7 +18,7 @@ const Navbar = () => {
       items = ["Home", "Find", "MyProfile", "Discuss"];
       break;
     case "judge":
-      items = ["Home", "Review", "MyProfile"];  
+      items = ["Home", "Review","MyHackathons","MyProfile"];  
       break;
     default:
       items = []

@@ -104,13 +104,6 @@ def add_user():
 
     collection.upsert(
         documents=[document_text], 
-        metadatas=[{
-            "username": username,
-            "user_id": user_id,
-            "email": user_email,
-            "skills": skills,
-            "interests": interests
-        }],
         ids=[user_id]
     )
     
@@ -119,18 +112,14 @@ def add_user():
 @app.route('/fetch_relevant_users', methods=['POST'])
 def fetch_relevant_users():
     data = request.json
-    skills = data.get("skills", [])
     interests = data.get("interests", [])
     collection = chroma_client.get_or_create_collection(name="my_database_user")
     print(chroma_client.list_collections())
 
-    if not skills and not interests:
+    if not interests:
         return jsonify({"error": "At least one skill or interest must be provided."}), 400
 
     query_texts = []
-    
-    if skills:
-        query_texts.append(f"Skills: {', '.join(skills)}")
     
     if interests:
         query_texts.append(f"Interests: {', '.join(interests)}")
@@ -138,7 +127,6 @@ def fetch_relevant_users():
     results = collection.query(
         query_texts=query_texts,
         n_results=5 ,
-        include=["metadatas"]
     )
 
     return jsonify({"relevant_users": results}), 200

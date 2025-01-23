@@ -9,7 +9,8 @@ import AboutUs from "./components/AboutUS/AboutUs";
 import Welcome from "./components/welcome/Welcome";
 import Login from './components/login/Login';
 import Register from './components/register/Register';
-import CreateHackathon from "../src/components/createHackathon/createHackathon.jsx"; // Importing CreateHackathon
+import CreateHackathon from "../src/components/createHackathon/createHackathon.jsx";
+import HackathonListPage from "./pages/HackthonListPage.jsx"; // Importing CreateHackathon
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/create" element={<CreateHackathon />} /> 
             <Route path="/hackathons/:hackathonId" element={<HackathonDetail />} />
+            <Route path="/find" element={<HackathonListPage />} />
           </Routes>
         </AnimatePresence>
       </Router>
