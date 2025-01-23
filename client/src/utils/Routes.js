@@ -9,9 +9,10 @@ export const LOGIN_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/${USER}/login`
 export const LOGOUT_ROUTE = `${BASE_URL}/${ADD}/${USER}/logout`
 export const TOKEN_ROUTE = `${BASE_URL}/${ADD}/${USER}/verify-token`
 export const EDIT_PROFILE_ROUTE = `${BASE_URL}/${ADD}/${USER}/`
-
+export const GET_ALL_JUDGES_HACKATHON_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/users/alljudgehackathons`
 
 export const CHATBOT_URL=`${BASE_URL_2}/query`
+export const FETCH_RELEVANT_TEAMMATES=`${BASE_URL_2}/fetch_relevant_users`
 
 
 

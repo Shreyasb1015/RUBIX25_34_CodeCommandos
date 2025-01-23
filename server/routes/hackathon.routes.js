@@ -5,7 +5,7 @@ import {
   closeHackathon, 
   getActiveHackathons,
   getActiveAndUpcomingHackathons,
-  getHackathonById
+  getHackathonById,
 } from '../controllers/hackathon.controller.js';
 import { verifyJWT } from '../middlewares/auth.middleware.js';
 import { handlehackathonBanner } from '../middlewares/hackathonBanner.js';
@@ -28,5 +28,7 @@ router.route('/active-upcoming').get(getActiveAndUpcomingHackathons);
 
 router.route('/:hackathonId')
   .get(getHackathonById);
+
+
 
 export default router;

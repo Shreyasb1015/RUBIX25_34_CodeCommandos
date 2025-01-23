@@ -5,6 +5,7 @@ import {User} from '../models/user.models.js'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url';
+import { Hackathon } from '../models/hackathon.models.js'
 import {uploadOnCloudinary,deleteFromCloudinary} from '../utils/cloudinary.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -193,7 +194,29 @@ const getUserById = async (req, res) => {
         });
     }
 };
+const getJudgeActiveHackathons = asyncHandler(async (req, res) => {
+    const userId = req.user?._id;
 
+    if (!userId) {
+        throw new ApiError(401, "Unauthorized access");
+    }
+
+    const activeHackathons = await Hackathon.find({
+        judgeId: userId,
+    })
+    .select("name description bannerImage startingDate endingDate mode domain prize")
+    .populate("organizerId", "username email");
+
+    if (!activeHackathons.length) {
+        return res.status(200).json(
+            new ApiResponse(200, [], "No active hackathons found where you are judge")
+        );
+    }
+
+    return res.status(200).json(
+        new ApiResponse(200, { activeHackathons }, "Active hackathons fetched successfully")
+    );
+});
 
 export {
     registerUser,
@@ -202,7 +225,8 @@ export {
     logoutUser,
     getAllUsers,
     updateProfile,
-    getUserById
+    getUserById,
+    getJudgeActiveHackathons
 }
 
 

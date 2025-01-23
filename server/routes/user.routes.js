@@ -1,7 +1,8 @@
 import Router from 'express';
-import { registerUser,loginUser,changePassword,logoutUser,getAllUsers,updateProfile,getUserById } from '../controllers/user.controller.js';
+import { registerUser,loginUser,changePassword,logoutUser,getAllUsers,updateProfile,getUserById,getJudgeActiveHackathons } from '../controllers/user.controller.js';
 import { verifyJWT } from '../middlewares/auth.middleware.js';
 import { handleProfilePic } from '../middlewares/profilePicStorage.js';
+
 
 
 const router=Router();  
@@ -14,6 +15,7 @@ router.get('/user/:userId', verifyJWT, getUserById)
 router.route('/allusers').get(verifyJWT,getAllUsers)
 
 router.route('/logout').get(verifyJWT,logoutUser)
-
+router.route("/alljudgehackathons")
+  .get(verifyJWT, getJudgeActiveHackathons);
 
 export default router;
