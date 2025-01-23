@@ -35,3 +35,46 @@
     height: 48px;
   }
 }
+
+.language-dialog {
+  position: absolute;
+  right: 120%;
+  top: 0;
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  min-width: 250px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+}
+
+.dark .language-dialog {
+  background: #1f2937;
+  color: white;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dark .dialog-header {
+  border-color: #374151;
+}
+
+.dialog-header button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.dialog-content {
+  max-height: 300px;
+  overflow-y: auto;
+}
