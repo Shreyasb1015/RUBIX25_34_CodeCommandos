@@ -1,0 +1,54 @@
+.hackathoncard{
+  height: 400px;
+  width: 470px;
+  background-color: whitesmoke;
+  padding: 20px 20px 20px 20px;
+  display: flex;
+  flex-direction: column; /* This makes the items stack vertically */
+  justify-items: center;
+  border: 3px solid black;
+  border-radius: 20px;
+}
+.hackathoncard h3{
+  font-size: larger;
+  font-weight: 700;
+  color: black;
+}
+.hackathoncard p{
+  font-size: medium;
+  font-weight: 500;
+  color: black;
+}
+
+.hackathonmatadata .mode, .date{
+  height: 100px;
+  padding-left: 5px;
+  font-size: medium;
+  font-weight: 500;
+  color: black;
+  background-color: rgb(199, 203, 223);
+  border-radius: 10px;
+  border: 2px solid transparent;
+
+}
+
+.bannerImage img{
+  height: 200px;
+  width: 100%;
+}
+
+.hackathonmatadata span{
+  height: 50px;
+  width: auto;
+}
+.detail{
+  height: 100px;
+  padding-left: 5px;
+  font-size: medium;
+  font-weight: 500;
+  color: black;
+}
+.get-started-btn{
+  height: 50px;
+}
+/* Add more CSS rules for styling the header, image, details, etc. */

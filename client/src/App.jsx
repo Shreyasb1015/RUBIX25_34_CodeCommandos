@@ -3,7 +3,7 @@ import { ThemeProvider } from "../contexts/ThemeContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import HackathonDetail from "./components/hackathondetail/HackathonDetail.jsx";
-
+// Importing Components
 import Home from "./components/Home/Home";
 import AboutUs from "./components/AboutUS/AboutUs";
 import Welcome from "./components/welcome/Welcome";

@@ -5,7 +5,6 @@ import {
   closeHackathon, 
   getActiveHackathons,
   getActiveAndUpcomingHackathons,
-  getHackathonById
 } from '../controllers/hackathon.controller.js';
 import { verifyJWT } from '../middlewares/auth.middleware.js';
 import { handlehackathonBanner } from '../middlewares/hackathonBanner.js';
@@ -13,7 +12,7 @@ import { handlehackathonBanner } from '../middlewares/hackathonBanner.js';
 const router = Router();
 
 router.route('/create')
-  .post(verifyJWT, handlehackathonBanner, createHackathon);
+  .post(handlehackathonBanner, createHackathon);
 
 router.route('/update/:id')
   .patch(verifyJWT, handlehackathonBanner, updateHackathon);
@@ -23,9 +22,6 @@ router.route('/close/:id')
 
 router.route('/active')
   .get(getActiveHackathons);
-  
-router.route('/:hackathonId')
-  .get(getHackathonById)
 
 router.route('/active-upcoming').get(getActiveAndUpcomingHackathons);
 
