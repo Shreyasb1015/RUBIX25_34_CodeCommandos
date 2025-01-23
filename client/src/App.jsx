@@ -23,7 +23,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/welcome" element={<Welcome />} />
-            <Route path="/create-hackathon" element={<CreateHackathon />} /> {/* Adding CreateHackathon Route */}
+            <Route path="/create" element={<CreateHackathon />} /> {/* Adding CreateHackathon Route */}
           </Routes>
         </AnimatePresence>
       </Router>
