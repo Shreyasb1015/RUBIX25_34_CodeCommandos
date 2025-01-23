@@ -5,17 +5,22 @@ from dotenv import load_dotenv
 import os
 import chromadb
 from chromadb.config import Settings
-
+from flask_cors import CORS
+import requests
+import base64
 
 
 chroma_client = chromadb.PersistentClient(path="./user_data")
 load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN")
 collection = chroma_client.get_or_create_collection(name="database_users")
 
 
 client = Groq(api_key=GROQ_API_KEY)
 app = Flask(__name__)
+CORS(app,supports_credentials=True)
+
 
 
 PROMPT_TEMPLATE = """
@@ -132,11 +137,282 @@ def fetch_relevant_users():
 
     results = collection.query(
         query_texts=query_texts,
-        n_results=5 
+        n_results=5 ,
         include=["metadatas"]
     )
 
     return jsonify({"relevant_users": results}), 200
 
+
+def get_repo_metrics(owner, repo_name, headers):
+    base_url = f'https://api.github.com/repos/{owner}/{repo_name}'
+    
+    commits = requests.get(f'{base_url}/commits', headers=headers).json()
+    pulls = requests.get(f'{base_url}/pulls?state=all', headers=headers).json()
+    issues = requests.get(f'{base_url}/issues?state=all', headers=headers).json()
+    
+    return {
+        'total_commits': len(commits) if isinstance(commits, list) else 0,
+        'total_prs': len(pulls) if isinstance(pulls, list) else 0,
+        'total_issues': len(issues) if isinstance(issues, list) else 0
+    }
+
+def create_judge_prompt(repo_data, metrics):
+    return f"""
+    You are an experienced hackathon judge evaluating a project. Analyze this submission based on:
+
+    Project Info:
+    - Name: {repo_data['name']}
+    - Description: {repo_data['description']}
+    - Primary Language: {repo_data['language']}
+    - Technologies: {repo_data['files'].get('package.json', 'Not available')}
+    
+    Repository Metrics:
+    - Stars: {repo_data['stars']}
+    - Forks: {repo_data['forks']}
+    - Total Commits: {metrics['total_commits']}
+    - Pull Requests: {metrics['total_prs']}
+    - Issues: {metrics['total_issues']}
+    
+    Documentation:
+    {repo_data['files'].get('README.md', 'No README available')}
+
+    Provide a structured analysis:
+    1. Project Overview (2-3 sentences)
+    2. Top 2 Strengths
+    3. Top 2 Areas for Improvement
+    4. Technical Implementation Score (1-10)
+    5. Innovation Score (1-10)
+    6. Documentation Score (1-10)
+    7. Overall Score (1-10)
+    8. Final Verdict (2-3 sentences)
+
+    Format your response in a clear, structured manner.
+    """
+
+@app.route('/fetch_repo_details', methods=['POST'])
+def fetch_repo_details():
+    data = request.json
+    repo_url = data.get("repo_url", "")
+
+    if not repo_url:
+        return jsonify({"error": "No repository URL provided."}), 400
+
+   
+    try:
+        repo_path = repo_url.split("github.com/")[1].strip().rstrip("/")
+        owner, repo_name = repo_path.split("/")
+    except IndexError:
+        return jsonify({"error": "Invalid repository URL."}), 400
+
+  
+    github_api_url = f"https://api.github.com/repos/{owner}/{repo_name}"
+
+
+    headers = {
+        "Authorization": f"token {GITHUB_ACCESS_TOKEN}", 
+    }
+
+
+    response = requests.get(github_api_url, headers=headers)
+
+    if response.status_code != 200:
+        return jsonify({"error": "Failed to fetch repository details from GitHub."}), response.status_code
+
+    repo_details = response.json()
+
+  
+    code_summary_prompt = f"Summarize the code in the repository '{repo_name}' owned by '{owner}'."
+    
+   
+    try:
+        summary_response = client.chat.completions.create(
+            messages=[
+                      {"role": "user", "content": code_summary_prompt}],
+            model="llama3-8b-8192"
+        )
+
+        code_summary = summary_response.choices[0].message.content
+        
+        return jsonify({
+            "repository_name": repo_name,
+            "owner": owner,
+            "description": repo_details.get("description"),
+            "stars": repo_details.get("stargazers_count"),
+            "forks": repo_details.get("forks_count"),
+            "summary": code_summary,
+        }), 200
+
+    except Exception as e:
+        return jsonify({"error": f"Error while analyzing the repository: {str(e)}"}), 500
+
+
+
+def get_repo_data(owner, repo_name, access_token):
+    headers = {
+        'Authorization': f'token {access_token}',
+        'Accept': 'application/vnd.github.v3+json'
+    }
+    
+    try:
+      
+        repo_url = f'https://api.github.com/repos/{owner}/{repo_name}'
+        repo_response = requests.get(repo_url, headers=headers)
+        repo_response.raise_for_status()
+        repo_data = repo_response.json()
+        
+      
+        contents_url = f'https://api.github.com/repos/{owner}/{repo_name}/contents'
+        contents_response = requests.get(contents_url, headers=headers)
+        contents_response.raise_for_status()
+        contents = contents_response.json()
+        
+        
+        files_data = {}
+        for item in contents:
+            if isinstance(item, dict) and item.get('type') == 'file':
+                if item['name'] in ['package.json', 'README.md']:
+                    file_response = requests.get(item['download_url'], headers=headers)
+                    file_response.raise_for_status()
+                    files_data[item['name']] = file_response.text
+        
+        return {
+            'name': repo_data.get('name'),
+            'description': repo_data.get('description'),
+            'language': repo_data.get('language'),
+            'stars': repo_data.get('stargazers_count'),
+            'forks': repo_data.get('forks_count'),
+            'files': files_data
+        }
+        
+    except requests.exceptions.RequestException as e:
+        raise Exception(f"GitHub API error: {str(e)}")
+
+def extract_github_info(github_url):
+   
+    try:
+      
+        github_url = github_url.strip()
+        if github_url.endswith('/'):
+            github_url = github_url[:-1]
+            
+       
+        if 'github.com' in github_url:
+            
+            if '://' in github_url:
+                github_url = github_url.split('://')[1]
+                
+            parts = github_url.split('/')
+            github_index = parts.index('github.com')
+            
+            if len(parts) > github_index + 2:
+                owner = parts[github_index + 1]
+                repo_name = parts[github_index + 2].split('.git')[0]  # Remove .git if present
+                return owner, repo_name
+                
+        raise ValueError("Invalid GitHub URL format. Expected: github.com/owner/repo")
+        
+    except Exception as e:
+        raise ValueError(f"Could not parse GitHub URL: {str(e)}")
+    
+def extract_analysis_sections(text):
+    
+    analysis = {
+        
+        'overview': '',
+        'strengths': [],
+        'improvements': [],
+        'scores': {
+            'technical': 0,
+            'innovation': 0,
+            'documentation': 0,
+            'overall': 0
+        },
+        'verdict': ''
+    }
+    
+    sections = text.split('\n')
+    current_section = None
+    
+    for line in text.split('\n'):
+        line = line.strip()
+        if not line:
+            continue
+            
+        
+        if "Project Overview" in line:
+            current_section = 'overview'
+        elif "Top 2 Strengths" in line:
+            current_section = 'strengths'
+        elif "Areas for Improvement" in line:
+            current_section = 'improvements'
+        elif "Technical Implementation Score" in line:
+            score = line.split('(')[1].split('/')[0]
+            analysis['scores']['technical'] = int(score)
+        elif "Innovation Score" in line:
+            score = line.split('(')[1].split('/')[0]
+            analysis['scores']['innovation'] = int(score)
+        elif "Documentation Score" in line:
+            score = line.split('(')[1].split('/')[0]
+            analysis['scores']['documentation'] = int(score)
+        elif "Overall Score" in line:
+            score = line.split('(')[1].split('/')[0]
+            analysis['scores']['overall'] = float(score)
+        elif "Final Verdict" in line:
+            current_section = 'verdict'
+        elif current_section:
+            
+            clean_line = line.strip('* ')
+            if current_section == 'overview':
+                analysis['overview'] += clean_line + ' '
+            elif current_section == 'strengths' and ('1.' in line or '2.' in line):
+                analysis['strengths'].append(clean_line)
+            elif current_section == 'improvements' and ('1.' in line or '2.' in line):
+                analysis['improvements'].append(clean_line)
+            elif current_section == 'verdict':
+                analysis['verdict'] += clean_line + ' '
+    
+    return {k: v.strip() if isinstance(v, str) else v for k, v in analysis.items()}
+
+
+@app.route('/analyze-repo', methods=['POST'])
+def analyze_repository():
+    github_url = request.json.get("github_url", "").strip()
+    
+    if not github_url:
+        return jsonify({"error": "GitHub URL is required"}), 400
+        
+    try:
+        owner, repo_name = extract_github_info(github_url)
+        headers = {
+            'Authorization': f'token {GITHUB_ACCESS_TOKEN}',
+            'Accept': 'application/vnd.github.v3+json'
+        }
+        
+        repo_data = get_repo_data(owner, repo_name, GITHUB_ACCESS_TOKEN)
+        metrics = get_repo_metrics(owner, repo_name, headers)
+        
+        judge_prompt = create_judge_prompt(repo_data, metrics)
+        
+        analysis_response = client.chat.completions.create(
+            messages=[{"role": "system", "content": judge_prompt}],
+            model="llama3-8b-8192",
+            temperature=0.7
+        )
+        
+        analysis_text = analysis_response.choices[0].message.content
+        structured_analysis = extract_analysis_sections(analysis_text)
+        return jsonify({
+            "repository_info": repo_data,
+            "metrics": metrics,
+            "analysis": structured_analysis
+        }), 200
+        
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
+    except Exception as e:
+        return jsonify({"error": f"GitHub API error: {str(e)}"}), 500
+    
+    
 if __name__ == "__main__":
     app.run(debug=True)

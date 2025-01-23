@@ -3,7 +3,8 @@ import {
   createHackathon, 
   updateHackathon, 
   closeHackathon, 
-  getActiveHackathons 
+  getActiveHackathons,
+  getActiveAndUpcomingHackathons,
 } from '../controllers/hackathon.controller.js';
 import { verifyJWT } from '../middlewares/auth.middleware.js';
 import { handlehackathonBanner } from '../middlewares/hackathonBanner.js';
@@ -21,5 +22,7 @@ router.route('/close/:id')
 
 router.route('/active')
   .get(getActiveHackathons);
+
+router.route('/active-upcoming').get(getActiveAndUpcomingHackathons);
 
 export default router;

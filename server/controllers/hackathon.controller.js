@@ -120,6 +120,27 @@ const getAllHackathons = asyncHandler(async (req, res) => {
 
   res.status(200).json(new ApiResponse(200, { hackathons }, 'All hackathons fetched successfully.'));
 });
+const getActiveAndUpcomingHackathons = asyncHandler(async (req, res) => {
+  const hackathons = await Hackathon.find({
+    status: { $in: ['active', 'upcoming'] }
+  }).sort({ startingDate: 1 });
+
+  // Update status for each hackathon
+  hackathons.forEach((hackathon) => {
+    hackathon.status = determineHackathonStatus(
+      new Date(hackathon.startingDate), 
+      new Date(hackathon.endingDate)
+    );
+  });
+
+  res.status(200).json(
+    new ApiResponse(
+      200, 
+      { hackathons }, 
+      'Active and upcoming hackathons fetched successfully.'
+    )
+  );
+});
 
 export {
   createHackathon,
@@ -127,4 +148,5 @@ export {
   closeHackathon,
   getActiveHackathons,
   getAllHackathons,
+  getActiveAndUpcomingHackathons,
 };

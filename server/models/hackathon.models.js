@@ -32,6 +32,10 @@ const hackathonSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  winnerId:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Team',
+  },
   hackathonSteps: {
     type: [
       {
