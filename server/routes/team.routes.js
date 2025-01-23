@@ -12,7 +12,7 @@ import { verifyJWT } from "../middlewares/auth.middleware.js";
 const router = Router();
 
 
-router.route("/create").post(verifyJWT, createTeam);
+router.route("/create").post( createTeam);
 router.route("/update").patch(verifyJWT, updateTeam);
 router.get('/accept-invite', acceptInvite);
 router.get('/decline-invite', declineInvite);

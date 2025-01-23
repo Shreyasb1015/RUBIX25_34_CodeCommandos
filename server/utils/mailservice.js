@@ -17,19 +17,18 @@ const transporter = nodemailer.createTransport({
 
 
 export const sendTeamInviteEmail = async (user, team, hackathon) => {
-  const acceptUrl = `http://${process.env.FRONTEND_URL}/api/team/accept-invite?teamId=${team._id}&userId=${user._id}`;
+  const acceptUrl = `http://${process.env.FRONTEND_URL}/api/v1/teams/accept-invite?teamId=${team._id}&userId=${user._id}`;
   const declineUrl = `http://${process.env.FRONTEND_URL}/api/team/decline-invite?teamId=${team._id}&userId=${user._id}`;
 
-e
+
   const filePath = path.join(__dirname, '../views/teamInviteEmail.html');
   let htmlTemplate = fs.readFileSync(filePath, 'utf8');
   htmlTemplate = htmlTemplate
-    .replace('{{teamName}}', team.name)
+    .replaceAll('{{teamName}}', team.name)
     .replace('{{hackathonName}}', hackathon.name)
     .replace('{{hackathonDetails}}', hackathon.description || 'No details available')
     .replace('{{acceptUrl}}', acceptUrl)
     .replace('{{declineUrl}}', declineUrl);
-
 
   await transporter.sendMail({
     to: user.email,
