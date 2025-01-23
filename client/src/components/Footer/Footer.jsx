@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useTheme } from "../../../contexts/ThemeContext";  // Assuming you have a ThemeContext
+import { useTheme } from "../../../contexts/ThemeContext"; // Assuming you have a ThemeContext
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa"; // Import react-icons
 
 const Footer = () => {
   const { theme } = useTheme(); // Get current theme from context
@@ -31,7 +32,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="w-8 h-8 flex items-center justify-center rounded-full bg-white text-blue-600 hover:bg-blue-600 hover:text-white transition"
           >
-            <i className="fab fa-facebook-f"></i>
+            <FaFacebookF />
           </a>
           <a
             href="https://twitter.com"
@@ -39,7 +40,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="w-8 h-8 flex items-center justify-center rounded-full bg-white text-blue-400 hover:bg-blue-400 hover:text-white transition"
           >
-            <i className="fab fa-twitter"></i>
+            <FaTwitter />
           </a>
           <a
             href="https://linkedin.com"
@@ -47,7 +48,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="w-8 h-8 flex items-center justify-center rounded-full bg-white text-blue-800 hover:bg-blue-800 hover:text-white transition"
           >
-            <i className="fab fa-linkedin-in"></i>
+            <FaLinkedinIn />
           </a>
           <a
             href="https://instagram.com"
@@ -55,7 +56,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="w-8 h-8 flex items-center justify-center rounded-full bg-white text-pink-500 hover:bg-pink-500 hover:text-white transition"
           >
-            <i className="fab fa-instagram"></i>
+            <FaInstagram />
           </a>
         </div>
 

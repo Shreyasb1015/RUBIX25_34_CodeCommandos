@@ -15,56 +15,17 @@ import {
 } from "react-icons/fa";
 import { useTheme } from "../../../contexts/ThemeContext"; // Import the custom hook
 
-const Timeline = () => {
+const Timeline = ({hackathonSteps}) => {
   const { theme } = useTheme(); // Access the current theme
 
-  const isDarkTheme = theme === "dark"; // Determine the theme
-
-  const events = [
-    {
-      date: "2022",
-      title: "Launched Our Platform",
-      description:
-        "We took our first step into the tech world with a successful launch.",
-      icon: <FaRocket />,
-      color: "bg-cyan-500",
-    },
-    {
-      date: "2023",
-      title: "Innovative Features",
-      description:
-        "Introduced cutting-edge features to enhance user experience.",
-      icon: <FaRegLightbulb />,
-      color: "bg-green-500",
-    },
-    {
-      date: "2024",
-      title: "Major Milestone",
-      description: "Achieved a significant milestone with 1 million active users.",
-      icon: <FaUsers />,
-      color: "bg-blue-500",
-    },
-    {
-      date: "2025",
-      title: "Expanded Horizons",
-      description: "Ventured into new domains and reached global markets.",
-      icon: <FaGraduationCap />,
-      color: "bg-purple-500",
-    },
-    {
-      date: "2026",
-      title: "Record Growth",
-      description: "Achieved exponential growth with cutting-edge analytics.",
-      icon: <FaChartLine />,
-      color: "bg-orange-500",
-    },
-    {
-      date: "2027",
-      title: "Global Impact",
-      description: "Made a significant global impact with innovative solutions.",
-      icon: <FaGlobe />,
-      color: "bg-teal-500",
-    },
+  const isDarkTheme = theme === "dark"; // Determine the them
+  
+  const icons = [
+    <FaRocket />,
+    <FaRegLightbulb />,
+    <FaGraduationCap />,
+    <FaChartLine />,
+    <FaGlobe/>
   ];
 
   const themeStyles = {
@@ -77,7 +38,11 @@ const Timeline = () => {
   const arrowStyle = {
     borderRight: `7px solid ${isDarkTheme ? "#1f2937" : "#ffffff"}`, // Dynamic arrow
   };
-
+  if (!hackathonSteps) {
+    return (
+      <h1>No Steps</h1>
+    )
+  }
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -93,7 +58,7 @@ const Timeline = () => {
         Our Journey
       </h1>
       <VerticalTimeline>
-        {events.map((event, index) => (
+        {hackathonSteps.map((event, index) => (
           <VerticalTimelineElement
             key={index}
             className="vertical-timeline-element--work"
@@ -104,24 +69,24 @@ const Timeline = () => {
               isDarkTheme ? "text-gray-300" : "text-gray-700"
             } font-medium`}
             iconStyle={{
-              background: `${event.color}`,
+              background: "gray",
               color: "#fff",
             }}
-            icon={event.icon}
+            icon={icons[index%5]}
           >
             <h3
               className={`text-xl font-bold ${
                 isDarkTheme ? "text-gray-100" : "text-gray-900"
               }`}
             >
-              {event.title}
+              {event.text}
             </h3>
             <p
               className={`${
                 isDarkTheme ? "text-gray-300" : "text-gray-600"
               } leading-relaxed`}
             >
-              {event.description}
+              {event.date}
             </p>
           </VerticalTimelineElement>
         ))}

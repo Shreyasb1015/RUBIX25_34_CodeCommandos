@@ -11,6 +11,8 @@ import Login from './components/login/Login';
 import Register from './components/register/Register';
 import CreateHackathon from "../src/components/createHackathon/createHackathon.jsx";
 import HackathonListPage from "./pages/HackthonListPage.jsx"; // Importing CreateHackathon
+import Profile from "./components/profile/profile.jsx"; // Import Profile
+
 
 const App = () => {
   return (
@@ -27,6 +29,9 @@ const App = () => {
             <Route path="/create" element={<CreateHackathon />} /> 
             <Route path="/hackathons/:hackathonId" element={<HackathonDetail />} />
             <Route path="/find" element={<HackathonListPage />} />
+            <Route path="/myprofile" element={<Profile />} /> {/* Adding Profile Route */}
+
+
           </Routes>
         </AnimatePresence>
       </Router>
