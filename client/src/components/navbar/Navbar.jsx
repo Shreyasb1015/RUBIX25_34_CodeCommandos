@@ -34,6 +34,21 @@ const Navbar = () => {
           </button>
         </motion.div>
 
+        {/* Centered Create Hackathon Button */}
+        {/* <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="navbar-create-hackathon"
+        >
+          <button
+            onClick={() => navigate("/create-hackathon")}
+            className="create-hackathon-btn"
+          >
+            Create Hackathon
+          </button>
+        </motion.div> */}
+
         {/* Navbar Links */}
         <motion.ul
           initial={{ opacity: 0, x: 50 }}

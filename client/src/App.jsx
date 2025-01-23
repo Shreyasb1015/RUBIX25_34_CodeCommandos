@@ -1,25 +1,29 @@
 import React from "react";
 import { ThemeProvider } from "../contexts/ThemeContext";
-import AboutUs from "./components/AboutUS/AboutUs"; 
-import { BrowserRouter as Router, Routes, Route,  } from "react-router-dom";
-import Home from "./components/Home/Home"; 
-import Card from "./components/Card"; 
-import Welcome from "./components/welcome/Welcome";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import Login from './components/login/Login'
-import Register from './components/register/Register'
+
+// Importing Components
+import Home from "./components/Home/Home";
+import AboutUs from "./components/AboutUS/AboutUs";
+import Welcome from "./components/welcome/Welcome";
+import Login from './components/login/Login';
+import Register from './components/register/Register';
+import CreateHackathon from "../src/components/createHackathon/createHackathon.jsx"; // Importing CreateHackathon
+
 const App = () => {
   return (
     <ThemeProvider>
       <Router>
         <AnimatePresence mode="wait">
           <Routes>
-            
-            <Route path='/' element={<Home />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/welcome" element={<Welcome />} />
+            <Route path="/create-hackathon" element={<CreateHackathon />} /> {/* Adding CreateHackathon Route */}
           </Routes>
         </AnimatePresence>
       </Router>
