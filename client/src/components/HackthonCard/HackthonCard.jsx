@@ -5,10 +5,14 @@ import { AwesomeButton } from "react-awesome-button";
 import { useNavigate } from 'react-router-dom';
 const HackathonCard = ({ hackathon }) => {
   const navigate = useNavigate();
-  const handleHackathonClick=()=>{
-
-    navigate(`/hackathons/${hackathon._id}`);
-  }
+  const user = JSON.parse(localStorage.getItem('user'));
+  const handleButtonClick = () => {
+    if (user?.roles === 'judge') {
+      navigate(`/judge/hackathons/${hackathon._id}`);
+    } else {
+      navigate(`/hackathons/${hackathon._id}`);
+    }
+  };
   return (
     <div className={styles.hackathoncard}>
   <div className="hackathon-header">
@@ -36,9 +40,14 @@ const HackathonCard = ({ hackathon }) => {
       Explore
     </Link>
   </div>
-  <AwesomeButton type="primary" ripple={true} onPress={handleHackathonClick} className="get-started-btn mt-4">
-    Register
-    </AwesomeButton>
+  <AwesomeButton 
+        type="primary" 
+        ripple={true} 
+        onPress={handleButtonClick}
+        className="get-started-btn mt-4"
+      >
+        {user?.roles === 'judge' ? 'Check In' : 'Register'}
+      </AwesomeButton>
 </div>
 
   );

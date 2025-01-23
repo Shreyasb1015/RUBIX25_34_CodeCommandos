@@ -1,0 +1,171 @@
+.project-review-container {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  padding: 2rem;
+}
+
+.project-content {
+  max-width: 1200px;
+  margin: 80px auto 0;
+}
+
+.team-info-card {
+  background: rgba(255, 165, 0, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 165, 0, 0.05);
+  border-radius: 12px;
+}
+
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #24292e;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.analyze-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 2rem 0;
+}
+
+.metrics-section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(255, 165, 0, 0.05);
+  border-radius: 12px;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  background: rgba(255, 165, 0, 0.1);
+  border-radius: 12px;
+  transition: transform 0.2s;
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+}
+
+.metric-icon {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.metric-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.analysis-section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(255, 165, 0, 0.05);
+  border-radius: 12px;
+}
+
+.scores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.score-card {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(255, 165, 0, 0.1);
+  border-radius: 12px;
+}
+
+.score {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.analysis-text {
+  margin-top: 2rem;
+}
+
+.analysis-text h3 {
+  margin: 1.5rem 0 1rem;
+  color: var(--primary-color);
+}
+
+.analysis-text ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.analysis-text li {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.analysis-text li:before {
+  content: "•";
+  color: var(--primary-color);
+  position: absolute;
+  left: 0;
+}
+
+@media (max-width: 768px) {
+  .project-content {
+    padding: 1rem;
+  }
+  
+  .metrics-grid,
+  .scores-grid {
+    grid-template-columns: 1fr;
+  }
+}

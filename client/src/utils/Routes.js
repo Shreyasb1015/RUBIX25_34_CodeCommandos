@@ -14,6 +14,7 @@ export const GET_ALL_JUDGES=`${BASE_URL}/${ADD}/${ADD2}/users/alljudges`
 
 export const CHATBOT_URL=`${BASE_URL_2}/query`
 export const FETCH_RELEVANT_TEAMMATES=`${BASE_URL_2}/fetch_relevant_users`
+export const GET_AI_REVIEW=`${BASE_URL_2}/analyze-repo`
 
 
 
@@ -23,3 +24,5 @@ export const GET_HACKATHON_BY_ID_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/hackathons`
 
 
 export const SEND_TEAM_INVITE_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/teams/send-invite`
+export const GET_TEAMS_BY_HACKATHON_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/teams/hackathon`;
+export const GET_TEAM_BY_ID_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/teams/getteam`;

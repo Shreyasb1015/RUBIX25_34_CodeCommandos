@@ -12,6 +12,10 @@ import Register from './components/register/Register';
 import CreateHackathon from "../src/components/createHackathon/createHackathon.jsx";
 import HackathonListPage from "./pages/HackthonListPage.jsx"; 
 import Profile from "./components/profile/profile.jsx"; 
+import FetchAllToJudgePage from  './pages/FetchAllToJudgePage.jsx'
+import HackathonDetail2 from "./components/JudgeSubmissions/HackathonDetail2.jsx";
+import JudgeTeams from "./components/judge-hackathon-teams/JudgeTeams.jsx";
+import HackathonProjects from "./components/judgehackathonprojects/HackathonProjects.jsx";
 //import CreateTeamPage from './pages/CreateTeamPage.jsx'
 
 
@@ -31,8 +35,10 @@ const App = () => {
             <Route path="/hackathons/:hackathonId" element={<HackathonDetail />} />
             <Route path="/find" element={<HackathonListPage />} />
             <Route path="/myprofile" element={<Profile />} />
-             {/* Adding Profile Route */}
-            
+            <Route path="/myhackathons" element={<FetchAllToJudgePage />} />
+            <Route path="/judge/hackathons/:hackathonId" element={<HackathonDetail2 />}/>
+            <Route path="/judgeteams/:hackathonId" element={<JudgeTeams />} />
+            <Route path="/team/review/:teamId" element={<HackathonProjects />} />
 
 
           </Routes>

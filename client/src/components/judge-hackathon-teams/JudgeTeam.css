@@ -1,0 +1,122 @@
+.judge-teams-container {
+    min-height: 100vh;
+    background: var(--bg-primary);
+    padding: 20px;
+  }
+  
+  .teams-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 80px;
+  }
+  
+  .teams-content h1 {
+    color: var(--text-primary);
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .teams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .team-card {
+    background: rgba(255, 165, 0, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid rgba(255, 165, 0, 0.2);
+    transition: transform 0.2s;
+  }
+  
+  .team-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .team-header h2 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+  }
+  
+  .progress-badge {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+  }
+  
+  .progress-badge.ideation {
+    background: #3b82f6;
+    color: white;
+  }
+  
+  .progress-badge.in-progress {
+    background: #f59e0b;
+    color: white;
+  }
+  
+  .progress-badge.completed {
+    background: #10b981;
+    color: white;
+  }
+  
+  .team-info {
+    margin: 15px 0;
+    color: var(--text-secondary);
+  }
+  
+  .team-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .view-project-btn {
+    padding: 8px 16px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  
+  .view-project-btn:hover {
+    background: var(--primary-color-dark);
+  }
+  
+  .ranking-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .ranking-input {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    background: transparent;
+    color: var(--text-primary);
+  }
+  
+  @media (max-width: 768px) {
+    .teams-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .team-actions {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }

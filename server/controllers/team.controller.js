@@ -4,11 +4,13 @@ import { Hackathon } from "../models/hackathon.models.js";
 import { sendTeamInviteEmail } from '../utils/mailservice.js'
 import {Group} from "../models/group.models.js";
 import mongoose from "mongoose";
-
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { ApiError } from "../utils/ApiError.js";
 
 export const createTeam = async (req, res) => {
   try {
-    const { name, membersId, leaderId, hackathonId, projectName } = req.body;
+    const { name, membersId, leaderId, hackathonId, projectName,projectLink} = req.body;
 
     const leader = await User.findById(leaderId);
     if (!leader) return res.status(404).json({ message: "Leader not found" });
@@ -19,10 +21,11 @@ export const createTeam = async (req, res) => {
    
     const team = new Team({
       name,
-      membersId: [leaderId], 
+      membersId: membersId || [leaderId], 
       leaderId,
       hackathonId,
       projectName: projectName || "",
+      projectLink: projectLink || "",
     });
 
     await team.save();
@@ -186,3 +189,56 @@ export const sendTeamInvite = async (req, res) => {
     res.status(500).json({ message: 'Failed to send email', error });
   }
 };
+export const getTeamsByHackathonId = asyncHandler(async (req, res) => {
+  const { hackathonId } = req.params;
+
+  if (!hackathonId) {
+      throw new ApiError(400, "Hackathon ID is required");
+  }
+
+  const teams = await Team.find({ hackathonId })
+      .populate('membersId', 'username email')
+      .populate('leaderId', 'username email')
+      .sort({ ranking: 1 })
+      .lean();
+
+  if (!teams.length) {
+      return res.status(200).json(
+          new ApiResponse(200, [], "No teams found for this hackathon")
+      );
+  }
+
+  return res.status(200).json(
+      new ApiResponse(
+          200,
+          { teams },
+          "Teams fetched successfully"
+      )
+  );
+});
+
+export const getTeamById = asyncHandler(async (req, res) => {
+  const { teamId } = req.params;
+
+  if (!teamId) {
+      throw new ApiError(400, "Team ID is required");
+  }
+
+  const team = await Team.findById(teamId)
+      .populate('membersId', 'username email')
+      .populate('leaderId', 'username email')
+      .populate('hackathonId', 'name status')
+      .lean();
+
+  if (!team) {
+      throw new ApiError(404, "Team not found");
+  }
+
+  return res.status(200).json(
+      new ApiResponse(
+          200,
+          team,
+          "Team details fetched successfully"
+      )
+  );
+});
