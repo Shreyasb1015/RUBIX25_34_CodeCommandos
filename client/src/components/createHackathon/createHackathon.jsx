@@ -77,12 +77,11 @@ const CreateHackathon = () => {
     formData.append("organizerId",user);
     formData.append("startingDate", hackathonDetails.startDate);
     formData.append("endingDate", hackathonDetails.endDate);
-    formData.append("steps", steps);
+    formData.append("hackathonSteps", steps);
     formData.append("domain", hackathonDetails.domain);
     formData.append("prize", hackathonDetails.prizePool1st);
     formData.append("duration", hackathonDetails.duration);
     formData.append("mode", hackathonDetails.mode);
-    console.log(formData);
 
     try {
       const response = await axios.post(CREATE_HAKATHON_ROUTE, formData, {

@@ -16,8 +16,10 @@ const Navbar = () => {
       break;
     case "participant":
       items = ["Home", "Find", "MyProfile", "Discuss"];
+      break;
     case "judge":
       items = ["Home", "Review", "MyProfile"];  
+      break;
     default:
       items = []
       break;
