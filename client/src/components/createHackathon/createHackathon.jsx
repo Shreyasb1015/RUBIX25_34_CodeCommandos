@@ -20,7 +20,7 @@ const CreateHackathon = () => {
   };
 
   const [steps, setSteps] = useState([
-    { text: "", date: "" }, // Initialize with one empty step
+    { text: "", date: "" }, 
   ]);
 
   const handleStepInputChange = (index, field, value) => {
