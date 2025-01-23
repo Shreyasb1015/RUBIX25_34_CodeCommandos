@@ -18,6 +18,7 @@ const HackathonDetail = () => {
     const fetchHackathon = async () => {
       try {
         const response = await axios.get(`${GET_HACKATHON_BY_ID_ROUTE}/${hackathonId}`,{withCredentials:true});
+        console.log(response)
         setHackathon(response.data.data);
       } catch (error) {
         console.error('Error:', error);
