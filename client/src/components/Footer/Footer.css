@@ -105,9 +105,7 @@ body {
   border-radius: 9999px;
 }
 
-.bg-white {
-  background-color: #ffffff;
-}
+
 
 .text-blue-600 {
   color: #2563eb;
@@ -163,4 +161,15 @@ body {
   .text-lg {
     font-size: 1rem;
   }
+}
+
+/* Set default color for FontAwesome icons */
+.fa {
+  color: inherit; /* Inherit the text color of the parent element */
+  transition: color 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Optional: Add specific hover effects for icons */
+.fa:hover {
+  color: var(--hover-color); 
 }

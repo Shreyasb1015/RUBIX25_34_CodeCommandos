@@ -10,6 +10,7 @@ import Welcome from "./components/welcome/Welcome";
 import Login from './components/login/Login';
 import Register from './components/register/Register';
 import CreateHackathon from "../src/components/createHackathon/createHackathon.jsx"; // Importing CreateHackathon
+import Profile from "./components/profile/profile.jsx"; // Import Profile
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/create-hackathon" element={<CreateHackathon />} /> {/* Adding CreateHackathon Route */}
+            <Route path="/profile" element={<Profile />} /> {/* Adding Profile Route */}
           </Routes>
         </AnimatePresence>
       </Router>
