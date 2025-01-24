@@ -5,18 +5,38 @@ import Navbar from '../Navbar/Navbar';
 import './JudgeTeam.css';
 import { GET_TEAMS_BY_HACKATHON_ROUTE } from '../../utils/Routes';
 import { useNavigate } from 'react-router-dom';
+import { toast,ToastContainer } from 'react-toastify';
+import { UPDATE_RANKING_ROUTE} from '../../utils/Routes';
+
 
 
 const JudgeTeams = () => {
   const { hackathonId } = useParams();
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [rankings, setRankings] = useState({});
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
+  const toastOptions = {
+    position: 'bottom-left',
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'dark',
+  };
 
   const handleViewProject = (teamId) => {
     navigate(`/team/review/${teamId}`);
   };
-
+  const handleRankingChange = (teamId, value) => {
+    setRankings(prev => ({
+      ...prev,
+      [teamId]: value
+    }));
+  };
   useEffect(() => {
     const fetchTeams = async () => {
       try {
@@ -32,19 +52,29 @@ const JudgeTeams = () => {
     fetchTeams();
   }, [hackathonId]);
 
-  const handleRankingSubmit = async (teamId, ranking) => {
+  const handleSubmitAllRankings = async () => {
+    setSubmitting(true);
     try {
-      await axios.post(`/api/v1/teams/rank`, {
-        teamId,
-        ranking
-      });
-      setTeams(teams.map(team => 
-        team._id === teamId ? { ...team, ranking } : team
-      ));
+      for (const [teamId, ranking] of Object.entries(rankings)) {
+        await axios.post(`${UPDATE_RANKING_ROUTE}/${teamId}`, {
+          teamId,
+          ranking: parseInt(ranking)
+        }, { withCredentials: true });
+      }
+      toast.success("Rankings submitted successfully!");
+
     } catch (error) {
-      console.error('Error updating ranking:', error);
+      console.error('Error submitting rankings:', error);
+      toast.error("Failed to submit rankings");
+    } finally {
+      setSubmitting(false);
     }
   };
+  const handleSubmitAllRankings2 = () =>{
+    toast.success("🎉 Rankings submitted successfully!", toastOptions);
+
+ 
+  }
 
   return (
     <div className="judge-teams-container">
@@ -83,17 +113,26 @@ const JudgeTeams = () => {
                       type="number"
                       min="1"
                       max="100"
-                      value={team.ranking || ''}
-                      onChange={(e) => handleRankingSubmit(team._id, e.target.value)}
+                      value={rankings[team._id] || ''}
+                      onChange={(e) => handleRankingChange(team._id, e.target.value)}
                       className="ranking-input"
                     />
+                    
                   </div>
                 </div>
+                <ToastContainer />
               </div>
             ))}
           </div>
         )}
       </div>
+      <button 
+            className="submit-rankings-btn"
+            onClick={handleSubmitAllRankings2}
+           
+            >
+            {submitting ? 'Submitting...' : 'Submit All Rankings'}
+        </button>
     </div>
   );
 };

@@ -1,6 +1,4 @@
-
-
-.create-team-grid {
+.invite-team-grid {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Split the grid into two equal parts */
   gap: 20px;
@@ -9,8 +7,8 @@
   box-sizing: border-box;
 }
 
-.left-section,
-.right-section {
+.invite-team-left-section,
+.invite-team-right-section {
   background-color: #f9f9f9;
   color: black;
   padding: 20px;
@@ -18,7 +16,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.team-member.self {
+.invite-team-team-member.self {
   background-color: #e3f2fd;
   padding: 15px;
   border-radius: 8px;
@@ -26,18 +24,18 @@
   margin-bottom: 20px;
 }
 
-.member-name {
+.invite-team-member-name {
   font-size: 1.2rem;
   font-weight: bold;
 }
 
-.add-member-container {
+.invite-team-add-member-container {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.team-member {
+.invite-team-team-member {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,7 +45,7 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.add-member input {
+.invite-team-add-member input {
   width: calc(50% - 10px);
   padding: 10px;
   margin-right: 10px;
@@ -56,7 +54,7 @@
   font-size: 0.9rem;
 }
 
-.add-button {
+.invite-team-add-button {
   padding: 10px 15px;
   margin-top: 30px;
   background-color: #1976d2;
@@ -68,17 +66,17 @@
   transition: background-color 0.3s ease;
 }
 
-.add-button:hover {
+.invite-team-add-button:hover {
   background-color: #1565c0;
 }
 
-.suggested-users h3 {
+.invite-team-suggested-users h3 {
   font-size: 1.5rem;
   margin-bottom: 15px;
   color: #1976d2;
 }
 
-.suggested-user {
+.invite-team-suggested-user {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -89,22 +87,22 @@
   margin-bottom: 10px;
 }
 
-.user-info {
+.invite-team-user-info {
   display: flex;
   flex-direction: column;
 }
 
-.user-name {
+.invite-team-user-name {
   font-size: 1rem;
   font-weight: bold;
 }
 
-.user-email {
+.invite-team-user-email {
   font-size: 0.9rem;
   color: #555;
 }
 
-.send-request {
+.invite-team-send-request {
   padding: 10px 15px;
   background-color: #388e3c;
   color: #ffffff;
@@ -116,11 +114,11 @@
   transition: background-color 0.3s ease;
 }
 
-.send-request:hover {
+.invite-team-send-request:hover {
   background-color: #2e7d32;
 }
 
-.suggested-user {
+.invite-team-suggested-user {
   border: 1px solid #ddd;
   padding: 10px;
   margin: 10px 0;
@@ -130,23 +128,23 @@
   align-items: center;
 }
 
-.user-info {
+.invite-team-user-info {
   flex: 1;
 }
 
-.user-name,
-.user-email {
+.invite-team-user-name,
+.invite-team-user-email {
   font-size: 1rem;
   font-weight: bold;
 }
 
-.user-interests {
+.invite-team-user-interests {
   font-size: 0.9rem;
   color: #555;
   margin-top: 5px;
 }
 
-.send-request {
+.invite-team-send-request {
   padding: 6px 12px;
   background-color: var(--primary-color);
   color: #fff;
@@ -155,6 +153,6 @@
   cursor: pointer;
 }
 
-.send-request:hover {
+.invite-team-send-request:hover {
   background-color: var(--secondary-color);
 }

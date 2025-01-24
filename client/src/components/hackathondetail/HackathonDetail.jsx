@@ -145,7 +145,7 @@ const HackathonDetail = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="participate-btn"
-            onClick={() => navigate(`/participate/${hackathonId}`)}
+            onClick={() => navigate(`/create-team/${hackathonId}`)}
           >
             Participate Now
           </motion.button>

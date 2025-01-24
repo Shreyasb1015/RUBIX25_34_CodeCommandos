@@ -23,6 +23,8 @@ export const GET_ACTIVE_UPCOMING_HACKATHONS_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/
 export const GET_HACKATHON_BY_ID_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/hackathons`
 
 
-export const SEND_TEAM_INVITE_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/teams/send-invite`
+export const SEND_TEAM_INVITE_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/teams/send-invite`;
 export const GET_TEAMS_BY_HACKATHON_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/teams/hackathon`;
 export const GET_TEAM_BY_ID_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/teams/getteam`;
+export const UPDATE_RANKING_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/teams/rank`;
+export const CREATE_TEAM_ROUTE = `${BASE_URL}/${ADD}/${ADD2}/teams/create`;

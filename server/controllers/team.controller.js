@@ -21,7 +21,7 @@ export const createTeam = async (req, res) => {
    
     const team = new Team({
       name,
-      membersId: membersId || [leaderId], 
+      membersId:[leaderId], 
       leaderId,
       hackathonId,
       projectName: projectName || "",
@@ -164,6 +164,7 @@ export const declineInvite = async (req, res) => {
 
 export const sendTeamInvite = async (req, res) => {
   const { email, teamId, hackathonId } = req.body;
+  console.log(email)
 
   try {
    
@@ -174,8 +175,9 @@ export const sendTeamInvite = async (req, res) => {
     const team = await Team.findById(teamId);
     const hackathon = await Hackathon.findById(hackathonId);
     const user = await User.findOne({ email });
+    console.log(user)
 
-    if (!team || !hackathon || !user) {
+    if (!team || !hackathon ) {
       return res.status(404).json({ message: 'Invalid team, hackathon, or user' });
     }
 
@@ -239,6 +241,37 @@ export const getTeamById = asyncHandler(async (req, res) => {
           200,
           team,
           "Team details fetched successfully"
+      )
+  );
+});
+
+export const updateTeamRanking = asyncHandler(async (req, res) => {
+  const { teamId, ranking } = req.body;
+
+  if (!teamId || !ranking) {
+      throw new ApiError(400, "Team ID and ranking are required");
+  }
+
+  if (isNaN(ranking) || ranking < 1) {
+      throw new ApiError(400, "Ranking must be a positive number");
+  }
+
+  const updatedTeam = await Team.findByIdAndUpdate(
+      teamId,
+      { ranking },
+      { new: true }
+  ).populate('membersId', 'username email')
+   .populate('leaderId', 'username email');
+
+  if (!updatedTeam) {
+      throw new ApiError(404, "Team not found");
+  }
+
+  return res.status(200).json(
+      new ApiResponse(
+          200,
+          updatedTeam,
+          "Team ranking updated successfully"
       )
   );
 });

@@ -2,12 +2,22 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './InviteTeam.css';
 import { FETCH_RELEVANT_TEAMMATES } from '../../utils/Routes';
+import { SEND_TEAM_INVITE_ROUTE } from '../../utils/Routes';
+import { ToastContainer,toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
 
 const InviteTeam = () => {
   const [teamMembers, setTeamMembers] = useState([]);
   const [suggestedUsers, setSuggestedUsers] = useState([]);
   const [newMember, setNewMember] = useState({ name: '', email: '' });
-
+  const [loading, setLoading] = useState(false);
+  const { hackathonId } = useParams()
+  const user_emails={
+    "ShreyasBagwe":"bagweshreyas1015@gmail.com",
+    "ToshitHole":"2022.toshit.hole@ves.ac.in",
+    "GauravMahadeshwar":"mahadeshwargaurav11@gmail.com",
+    "SuryanaryanPanigrahy":"panigrahisurya360@gmail.com"
+} 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     console.log("User from localStorage:", user); 
@@ -38,6 +48,29 @@ const InviteTeam = () => {
         setSuggestedUsers([]);
       });
   }, []);
+  const handleInvite = async (userEmail) => {
+    setLoading(true);
+    try {
+      const team = JSON.parse(localStorage.getItem('team'));
+      if (!team) {
+        toast.error("Please create a team first!");
+        return;
+      }
+
+      await axios.post(`${SEND_TEAM_INVITE_ROUTE}`, {
+        email: userEmail,
+        teamId: team._id,
+        hackathonId
+      }, { withCredentials: true });
+
+      toast.success(`Invitation sent to ${userEmail}!`);
+    } catch (error) {
+      console.error('Error:', error.message);
+      toast.error(error.response?.data?.message || "Failed to send invitation");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleAddMember = () => {
     if (newMember.name && newMember.email) {
@@ -46,34 +79,32 @@ const InviteTeam = () => {
     }
   };
 
-  const handleSendRequest = (member) => {
-    console.log(`Invitation sent to ${member.name || member.username} (${member.email})`);
-  };
+
 
   return (
-    <div className="create-team-grid">
-      <div className="left-section">
-        <div className="team-member self">
-          <div className="member-name">Your Name</div>
+    <div className="invite-team-grid">
+      <div className="invite-team-left-section">
+        <div className="invite-team-team-member self">
+          <div className="invite-team-member-name">Your Name</div>
         </div>
 
-        <div className="add-member-container">
+        <div className="invite-team-add-member-container">
           {teamMembers.map((member, index) => (
-            <div key={index} className="team-member">
+            <div key={index} className="invite-team-team-member">
               <div>
-                <div className="member-name">{member.name}</div>
-                <div className="member-email">{member.email}</div>
+                <div className="invite-team-member-name">{member.name}</div>
+                <div className="invite-team-member-email">{member.email}</div>
               </div>
               <button
-                onClick={() => handleSendRequest(member)}
-                className="send-request"
+                onClick={() => handleInvite(member.email)}
+                className="invite-team-send-request"
               >
                 Invite
               </button>
             </div>
           ))}
 
-          <div className="add-member">
+          <div className="invite-team-add-member">
             <input
               type="text"
               placeholder="Name"
@@ -92,29 +123,29 @@ const InviteTeam = () => {
                 setNewMember({ ...newMember, email: e.target.value })
               }
             />
-            <button onClick={handleAddMember} className="add-button">
+            <button onClick={handleAddMember} className="invite-team-add-button">
               +
             </button>
           </div>
         </div>
       </div>
 
-      <div className="right-section">
-        <div className="suggested-users">
+      <div className="invite-team-right-section">
+        <div className="invite-team-suggested-users">
           <h3>Suggested Users</h3>
           {suggestedUsers.length > 0 ? (
             suggestedUsers.map((user, index) => (
-              <div key={index} className="suggested-user">
-                <div className="user-info">
-                  <div className="user-name">{user.username}</div>
-                  <div className="user-email">{user.email}</div>
-                  <div className="user-interests">
+              <div key={index} className="invite-team-suggested-user">
+                <div className="invite-team-user-info">
+                  <div className="invite-team-user-name">{user.username}</div>
+                  <div className="invite-team-user-email">{user_emails[user.username]}</div>
+                  <div className="invite-team-user-interests">
                     <strong>Interests:</strong> {user.interests.join(', ') || 'N/A'}
                   </div>
                 </div>
                 <button
-                  onClick={() => handleSendRequest(user)}
-                  className="send-request"
+                  onClick={() => handleInvite(user_emails[user.username])}
+                  className="invite-team-send-request"
                 >
                   Invite
                 </button>
